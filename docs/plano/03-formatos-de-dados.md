@@ -48,6 +48,7 @@ content/packs/base/
 ├── tracks/<slug>/          track.json (a cena fica em godot/game/tracks/<slug>/)
 ├── upgrades/upgrades.json
 ├── economy.json
+├── handling_global.json     # constantes globais de "feeling" da física (Etapa 04, editáveis pelo painel F2)
 └── career/                 chapters.json, events.json, rivals.json, messages.json
 ```
 Mods ficam em `user://mods/<pacote>/` com a mesma estrutura.
@@ -243,6 +244,7 @@ Separador **`-`** (hífen). Ponto (`.`) é proibido porque o Godot não aceita p
 - `parts`, `sockets` e `wheels.anchors` são **escritos automaticamente** pelo Studio a partir do `.glb` (ninguém digita isso à mão). O validador confere se o JSON bate com o modelo.
 - ID de cada peça específica = `part:<pacote>/<slug-do-carro>/<slot>-<variante>`.
 - Peças sem `price` usam o preço padrão do slot × fator da categoria do carro (em `economy.json`).
+- Campo opcional `tuning_overrides` (objeto): ajustes finos de física deste carro salvos pelo painel F2 / test drive do Studio (Etapa 04/06). Sobrescrevem os valores calculados pelo `HandlingModel`.
 
 ## 6. Peça universal — `part.json`
 ```json
