@@ -160,7 +160,12 @@ tests/  ──►  qualquer coisa
 - `conventions.json` — **fonte única** de slots, nomes de materiais, soquetes e orçamentos de polígonos. Lido pelo Godot e copiado para o add-on do Blender.
 
 ### 5.2 Save (`core/save/`)
-- `SaveManager`, `ProfileData`, `CarConfig` (customização de um carro do jogador), `SettingsData`, `Migrations`.
+- `SavePaths` — pasta base (`user://` globalizado ou `save/` ao lado do executável no modo portátil). Saves, `settings.json`, `input.json`, logs e mods ficam nela.
+- `FileOps` (operações de arquivo, trocadas nos testes para simular disco cheio), `SafeFile` (escrita atômica + backups), `SaveEnvelope` (envelope + checksum).
+- `ProfileStore` — toda a lógica de perfis (criar, carregar com recuperação, salvar, lixeira, duplicar, exportar/importar `.zip`). Testável sem autoload.
+- `SaveManager` (autoload) — casca sobre o `ProfileStore`: autosave agrupado (`SaveScheduler`, ~1 s), salvar ao fechar, sinais `saved`, `save_failed`, `save_recovered`.
+- `Settings` (autoload) — `SettingsData` + `InputBindingsData` em memória, salvos e aplicados (janela, vsync, FPS, volumes, idioma).
+- `ProfileData`, `CarConfig` (customização de um carro do jogador), `Migrations` (+ `migrations/`).
 
 ### 5.3 Veículo (`core/vehicle/`)
 ```

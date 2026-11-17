@@ -492,6 +492,12 @@ Definido na Etapa 01 (usado pela `Economy` na Etapa 09 e pelas recompensas nas E
 ```
 - Coordenadas de vinil (`pos`, `scale`) são normalizadas (0..1) na tela daquele lado do carro.
 - Se um ID não existir mais (mod desativado), o jogo **mantém o ID no save** e mostra a peça original — nunca apaga dados do jogador.
+  (`CarConfig.resolve()` devolve a versão "efetiva" com os originais no lugar + a lista de ausências; o save não muda.)
+- Valores aceitos (Etapa 02): uma zona de `paint` pode ter um `PaintSpec` **ou** o texto `body_color`/`stock`;
+  um lado de `vinyls` pode ter uma lista de camadas **ou** `mirror_left`/`mirror_right`; `lights.neon.mode` ∈
+  `fixo | pulsante | arco_iris`; `tuning.nitro_style` ∈ `curto | longo`; os sliders de `tuning` vão de 0 a 1.
+- Campos desconhecidos no carro e no perfil são **preservados** (um save de versão futura não perde dados ao
+  passar pelo jogo).
 
 ## 14. Save de perfil — `profile.json`
 Local: `<pasta de saves>/profiles/<profile_id>/profile.json` (+ `.bak1`, `.bak2`, `.bak3`).
@@ -517,6 +523,11 @@ Local: `<pasta de saves>/profiles/<profile_id>/profile.json` (+ `.bak1`, `.bak2`
 }
 ```
 - `sandbox: true` = **Modo Colecionador**: tudo liberado e grátis (ideal para o dono só curtir os carros).
+- **Checksum**: SHA-256 do texto *canônico* de `data` (JSON com chaves ordenadas, depois de uma ida e volta pelo
+  parser). Assim o valor não depende da formatação do arquivo nem de `2026` virar `2026.0` ao ser relido.
+- Leitura: `profile.json` → `.bak1` → `.bak2` → `.bak3`; o primeiro com JSON e checksum válidos é usado.
+- `profile_id`: `[a-z0-9_]+` (o jogo gera `p` + 6 dígitos hexadecimais). Excluir um perfil o move para
+  `profiles/_lixeira/<id>_<data>/`.
 - Preferências de direção (assistências, câmera) ficam no **perfil**, porque cada jogador tem as suas.
 
 ## 15. Configurações — `settings.json` e `input.json`
@@ -543,8 +554,18 @@ Local: `<pasta de saves>/profiles/<profile_id>/profile.json` (+ `.bak1`, `.bak2`
 }
 ```
 - `known_devices` usa o GUID do controle (`Input.get_joy_guid`) para lembrar quem é o Jogador 1 e o Jogador 2.
+- `settings.json` e `input.json` não têm checksum: são gravados de forma atômica com **1 backup** (`.bak1`);
+  arquivo ilegível → backup → valores padrão. Na primeira execução os padrões são gravados.
+- Padrões (Etapa 02): janela `windowed` 1280×720, vsync ligado, sem limite de FPS, qualidade `alto`,
+  `upscaler: off`, idioma `pt_BR`. Valores fora da faixa são corrigidos ao carregar.
+- `mods.enabled`: IDs de **mods** (`<saves>/mods/`) a carregar. Os pacotes oficiais carregam sempre.
+- Os valores de vídeo não são aplicados quando o jogo é aberto com `--windowed`, `--fullscreen` ou `--resolution`
+  (usados pela captura de tela).
 
 ## 16. Versionamento e migrações
 - Ao carregar, se `schema_version` < atual → aplicar migrações em sequência (`v1→v2`, `v2→v3`…) **antes** de converter para classes.
 - Cada migração é um arquivo em `core/save/migrations/` com teste usando um arquivo antigo real ("golden file") em `tests/fixtures/saves/`.
 - Se `schema_version` > atual (save de uma versão mais nova do jogo) → **não sobrescrever**: abrir em modo somente leitura e avisar.
+- O registro das migrações fica em `core/save/migrations/migrations.gd` (`REGISTRY` e `CURRENT_VERSIONS`).
+  `example_v1_to_v2.gd` é um **modelo** (não registrado), testado contra o golden file `tests/fixtures/saves/profile_v1.json`.
+- Versões atuais: `profile` 1, `settings` 1, `input` 1.

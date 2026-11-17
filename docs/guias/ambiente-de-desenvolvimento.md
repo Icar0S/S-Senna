@@ -44,7 +44,11 @@ Também dá para abrir `godot/project.godot` no editor e apertar **F5**.
 Na primeira execução os scripts importam o projeto (cria a pasta `godot/.godot/`, que **não** vai para o Git).
 
 Os logs ficam em `%APPDATA%\S-Senna\logs\s-senna.log` (Windows) ou `~/.local/share/S-Senna/logs/s-senna.log`
-(Linux); as 4 execuções anteriores ficam em `s-senna.1.log` … `s-senna.4.log`.
+(Linux) — ou em `save/logs/` no modo portátil; as 4 execuções anteriores ficam em `s-senna.1.log` … `s-senna.4.log`.
+Saves e configurações: ver [`saves-e-configuracoes.md`](saves-e-configuracoes.md).
+
+Para abrir uma cena específica (por exemplo a tela de teste de perfis), passe o caminho dela:
+`tools\scripts\jogar.bat res://game/sandbox/save_debug.tscn`.
 
 ## 3. Conferir antes de enviar
 

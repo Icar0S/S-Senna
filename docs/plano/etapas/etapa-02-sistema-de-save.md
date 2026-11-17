@@ -52,17 +52,19 @@ Estrutura:
 
 ## Critérios de aceite
 ### 🤖 Automáticos
-- [ ] Ida e volta (`to_dict` → JSON → `from_dict`) de perfil com 50 carros configurados é idêntica.
-- [ ] Arquivo principal truncado → carrega do `.bak1` e emite `save_recovered`.
-- [ ] Checksum errado → recuperação pelo backup.
-- [ ] Migração v1→v2 de exemplo aplicada a um "golden file".
-- [ ] Save de versão futura não é sobrescrito.
-- [ ] Modo portátil muda a pasta base.
-- [ ] Nomes com acentos e emojis funcionam; caminhos com espaços funcionam.
-- [ ] 20 pedidos de save em 100 ms resultam em 1 escrita.
-- [ ] Peça de mod ausente não some do save.
+- [x] Ida e volta (`to_dict` → JSON → `from_dict`) de perfil com 50 carros configurados é idêntica (`test_profile_store.gd`).
+- [x] Arquivo principal truncado → carrega do `.bak1` e emite `save_recovered` (`test_profile_store.gd`, `test_save_manager.gd`).
+- [x] Checksum errado → recuperação pelo backup.
+- [x] Migração v1→v2 de exemplo aplicada a um "golden file" (`tests/fixtures/saves/profile_v1.json`).
+- [x] Save de versão futura não é sobrescrito (nem pelo perfil carregado, nem por outro objeto com o mesmo ID).
+- [x] Modo portátil muda a pasta base.
+- [x] Nomes com acentos e emojis funcionam; caminhos com espaços funcionam.
+- [x] 20 pedidos de save em 100 ms resultam em 1 escrita (`test_save_manager.gd`, com tempo real).
+- [x] Peça de mod ausente não some do save.
+- [x] Disco cheio / escrita silenciosamente corrompida (simulados com `FileOps` falho): o save anterior continua intacto.
 ### 🎮 Manuais
-- [ ] Fechar o jogo pelo "X" da janela salva o perfil.
+- [ ] Fechar o jogo pelo "X" da janela salva o perfil — use a tela de teste: `tools\scripts\jogar.bat res://game/sandbox/save_debug.tscn`,
+  crie/carregue um perfil, clique em **"+1000 sem salvar"**, feche pelo X e abra de novo: o dinheiro deve ter aumentado.
 
 ## Armadilhas
 - Renomear sobre arquivo existente no Windows: por isso a rotação de backups antes do rename final.
@@ -70,3 +72,23 @@ Estrutura:
 
 ## Fora do escopo
 Telas de seleção de perfil (entram com a garagem, Etapa 09; aqui pode haver uma tela de debug simples).
+
+## Notas de implementação (2026-11-17)
+| Item | Como ficou | Motivo |
+|---|---|---|
+| Checksum | SHA-256 do texto **canônico** de `data` | O JSON relido traz todo número como float (`2026` → `2026.0`); com o texto cru o checksum nunca bateria. Doc 03 §14 |
+| Escrita | `.tmp` → **relê e compara** → gira backups → renomeia | A releitura pega "disco cheio silencioso" (gravação que diz OK mas grava lixo) |
+| Falhas simuladas | `FileOps` injetável (`ProfileStore`, `SaveManager.configure`, `Settings.configure`) | Testar falta de espaço sem encher o disco de verdade |
+| Lógica × autoload | `ProfileStore`/`SaveScheduler` (lógica, testáveis) + `SaveManager` (sinais, autosave, fechar) | Regra "lógica em RefCounted, nós finos" |
+| Salvar ao fechar | `NOTIFICATION_WM_CLOSE_REQUEST` **e** `_exit_tree` (cobre `get_tree().quit()`) | Também salva o que foi marcado com `mark_dirty` e não estava agendado |
+| Versão futura | Somente leitura; além disso, nada sobrescreve um arquivo do disco que seja de versão mais nova | Proteção contra um perfil recriado com o mesmo ID |
+| Migração de exemplo | `migrations/example_v1_to_v2.gd` (modelo, **não registrado**) + golden v1 real | As versões atuais continuam 1; o mecanismo e o modelo ficam prontos e testados |
+| Campos desconhecidos | Preservados em perfil, carro, `settings.json` e `input.json` | Um save de versão nova que passa por esta versão não perde dados |
+| `settings.json` / `input.json` | Escrita atômica com 1 backup, sem checksum; padrões gravados na 1ª execução | O jogador pode editar à mão |
+| Padrões de vídeo | Janela 1280×720, sem upscaler | Tela cheia por padrão atrapalha rodar do código e a captura de tela; a tela de opções vem depois |
+| Aplicar vídeo | Ignorado em headless e quando a linha de comando já define a janela | A captura (`screenshot.sh`) usa `--windowed --resolution` |
+| Mods | `ContentDB` lê `settings.mods.enabled` e a pasta `<saves>/mods` | Fecha a pendência da Etapa 01; funciona no modo portátil |
+| Logs | Também seguem a pasta base (`<saves>/logs`) | Modo portátil completo |
+| Traduções | `godot/ui/i18n/strings.csv` (pt_BR, en) criado agora; os `.translation` gerados são commitados | O `Settings` aplica o idioma; commitados para um clone novo não reclamar antes da 1ª importação |
+| Tela de teste | `game/sandbox/save_debug.tscn` | Para o 🎮 de fechar pelo X (a tela de perfis de verdade vem na Etapa 09) |
+| Schemas | `profile`, `settings`, `input` em `schemas/` (aceitam campos extras) | O CI valida o golden file e os arquivos de exemplo |
