@@ -12,7 +12,7 @@ const CONTENT_DIR_ARG: String = "--content-dir"
 
 var builtin_dirs: PackedStringArray = [DEFAULT_BUILTIN_DIR]
 var mods_dir: String = DEFAULT_MODS_DIR
-## Pack IDs of the mods to load (`settings.mods.enabled`; wired in Etapa 02).
+## Pack IDs of the mods to load (`settings.mods.enabled`, set by `ContentDB`).
 var enabled_mods: PackedStringArray = []
 var extra_dirs: PackedStringArray = []
 

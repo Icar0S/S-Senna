@@ -27,3 +27,4 @@ Thumbs.db
 # Variáveis locais (podem conter segredos)
 .env
 .env.*
+

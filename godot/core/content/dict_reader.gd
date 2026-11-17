@@ -236,6 +236,23 @@ func check_header(schema_name: String, current_version: int) -> void:
 		)
 
 
+## Keys of this object that were never read (saves keep them instead of warning).
+func unread_keys() -> PackedStringArray:
+	var result: PackedStringArray = []
+	for key: String in keys():
+		if not _used.has(key):
+			result.append(key)
+	return result
+
+
+## Unread keys and their raw values (marks them as read).
+func take_unread() -> Dictionary:
+	var result: Dictionary = {}
+	for key: String in unread_keys():
+		result[key] = raw(key)
+	return result
+
+
 ## Reports keys that were never read as unknown fields, here and in nested readers.
 func finish() -> void:
 	for key: String in keys():

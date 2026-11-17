@@ -13,7 +13,11 @@ var _options: ContentScanOptions = null
 
 
 func _ready() -> void:
-	scan(ContentScanOptions.from_cmdline(OS.get_cmdline_user_args()))
+	var options: ContentScanOptions = ContentScanOptions.from_cmdline(OS.get_cmdline_user_args())
+	# Mods live next to the saves (portable mode included) and load only when enabled.
+	options.mods_dir = Settings.get_base_dir().path_join(SavePaths.MODS_DIR)
+	options.enabled_mods = Settings.data.enabled_mods
+	scan(options)
 
 
 ## Loads the packs found with [param options] and logs the result.
