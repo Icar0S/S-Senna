@@ -1,0 +1,43 @@
+name: Ideia
+description: Sugestão de melhoria, recurso novo, peça, pista ou modo de jogo.
+title: "[Ideia] "
+labels: ["ideia"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Antes de sugerir, vale olhar o plano em `docs/plano/` — principalmente o que está
+        **fora do escopo da 1.0** em `00-visao-do-jogo.md`.
+  - type: textarea
+    id: ideia
+    attributes:
+      label: Qual é a ideia?
+      description: Explique em poucas frases o que você gostaria de ver.
+    validations:
+      required: true
+  - type: textarea
+    id: motivo
+    attributes:
+      label: Por que isso deixaria o jogo melhor?
+      description: Que problema resolve ou que diversão acrescenta?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      options:
+        - Customização visual
+        - Garagem / Concessionária
+        - Corridas e modos de jogo
+        - Tela dividida / controles
+        - S-Senna Studio / add-on do Blender
+        - Visual e áudio
+        - Outro
+    validations:
+      required: true
+  - type: textarea
+    id: referencias
+    attributes:
+      label: Referências
+      description: Jogos, vídeos ou imagens que mostram a ideia (links).

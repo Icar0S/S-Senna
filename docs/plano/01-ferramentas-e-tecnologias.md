@@ -29,8 +29,8 @@ Qualquer troca de ferramenta deve virar uma nova decisão registrada na seção 
 | Áudio | **Audacity** | atual | GPL | Loops de motor, efeitos |
 | Sons | **Freesound** (filtro CC0) + gravações próprias | — | CC0 / próprio | Motores, pneus, batidas |
 | Música | Faixas CC0/CC-BY + **pasta de músicas do jogador** | — | — | Rádio do jogo |
-| Testes | **gdUnit4** | v6.x (exige Godot ≥ 4.5) | MIT | Testes unitários e de cena |
-| Lint/format | **gdtoolkit** (`gdlint`, `gdformat`) | 4.x | MIT | Padrão de código GDScript |
+| Testes | **gdUnit4** | v6.x (exige Godot ≥ 4.5) — fixado em **6.2.3** (`godot/addons/README.md`) | MIT | Testes unitários e de cena |
+| Lint/format | **gdtoolkit** (`gdlint`, `gdformat`) | 4.x — fixado em **4.5.0** (`tools/ci/requirements.txt`) | MIT | Padrão de código GDScript |
 | Validação de dados | **check-jsonschema** (Python) | atual | Apache-2.0 | Validar JSONs no CI |
 | Pistas (estradas) | **Godot Road Generator** (TheDuckCow) | versão compatível com 4.7 | MIT | Gerar malha de estrada a partir de curvas |
 | Diálogos (opcional) | **Dialogue Manager** (Nathan Hoad) | compatível com 4.7 | MIT | Cenas de história (Etapa 13) |
@@ -143,7 +143,7 @@ O agente (Fable 5.2) não "joga" o jogo, mas pode **ver** o resultado:
 ## 3. Endereços oficiais (para o agente confirmar versões)
 - Godot: https://godotengine.org/download — builds oficiais e templates: https://github.com/godotengine/godot-builds/releases
 - Blender: https://www.blender.org/download/lts/
-- gdUnit4: https://github.com/MikeSchulze/gdUnit4 — Action: https://github.com/MikeSchulze/gdUnit4-action
+- gdUnit4: https://github.com/godot-gdunit-labs/gdUnit4 (antigo `MikeSchulze/gdUnit4`) — Action: https://github.com/MikeSchulze/gdUnit4-action
 - gdtoolkit: https://github.com/Scony/godot-gdscript-toolkit
 - Godot Road Generator: https://github.com/TheDuckCow/godot-road-generator
 - Poly Haven: https://polyhaven.com — Kenney: https://kenney.nl/assets/input-prompts

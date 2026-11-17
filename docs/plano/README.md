@@ -71,14 +71,19 @@ Tamanho: **P** pequena · **M** média · **G** grande (pode ser dividida em vá
 ## Como o agente (Fable 5.2) deve executar cada etapa
 
 1. **Ler antes de codar**: `CLAUDE.md` (raiz), docs `00`, `01`, `02`, `03` (e `04` quando a etapa envolver arte/carros) e o arquivo da etapa.
-2. **Branch** por etapa: `etapa-NN-nome-curto` (etapas G podem virar vários PRs: `etapa-08a-...`, `etapa-08b-...`).
+2. **Branches**: o trabalho acontece na branch **`dev`**; a **`main`** recebe o merge de `dev` quando a etapa é concluída.
+   Não há branch por etapa (decisão do dono em 2026-11-16, na Etapa 00). Etapas G podem ser entregues em partes
+   (`08a`, `08b`…), cada uma mesclada na `main` quando estiver verde.
 3. **Implementar em commits pequenos**, sempre com testes junto do código.
-4. Antes do PR, rodar localmente: `tools/ci/lint.sh`, `tools/ci/test.sh`, `tools/ci/validate_content.sh`, `tools/ci/check_architecture.sh`.
-5. Etapas visuais: anexar **capturas de tela** (`tools/scripts/screenshot.sh`) no PR.
-6. **PR** com: resumo, checklist dos critérios de aceite (🤖 marcados, 🎮 listados para o dono testar), riscos, o que ficou de fora.
+4. Antes de mesclar na `main`, rodar localmente: `tools/ci/lint.sh`, `tools/ci/test.sh`, `tools/ci/validate_content.sh`, `tools/ci/check_architecture.sh` — e conferir o CI do push em `dev`.
+5. Etapas visuais: gerar **capturas de tela** (`tools/scripts/screenshot.sh`) e mostrá-las ao dono na entrega.
+6. **Entrega** com: resumo, checklist dos critérios de aceite no arquivo da etapa (🤖 marcados, 🎮 listados para o dono testar), riscos, o que ficou de fora.
 7. Atualizar `PROGRESSO.md`, os guias em `docs/guias/` que a etapa pedir e o `CHANGELOG.md`.
-8. Se algo do plano estiver errado ou impossível: **não improvisar em silêncio** — atualizar o documento do plano no mesmo PR, explicando o motivo (e uma ADR em `01` se for decisão técnica).
-9. Itens 🧑 **decisão do dono**: usar o padrão indicado e registrar no PR que a decisão está pendente.
+8. Se algo do plano estiver errado ou impossível: **não improvisar em silêncio** — atualizar o documento do plano na mesma entrega, explicando o motivo (e uma ADR em `01` se for decisão técnica).
+9. Itens 🧑 **decisão do dono**: usar o padrão indicado e registrar em `PROGRESSO.md` que a decisão está pendente.
+
+> Onde os documentos das etapas falam em "PR" (por exemplo "CI verde em um PR"), leia como
+> "merge de `dev` na `main`" — o CI roda a cada push em `dev` e em `main`.
 
 ## Legenda usada nos documentos
 - 🤖 verificável automaticamente (testes/CI)

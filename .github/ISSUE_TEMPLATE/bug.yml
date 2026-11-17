@@ -1,0 +1,74 @@
+name: Bug
+description: Algo não funciona como deveria no Jogo ou no S-Senna Studio.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por avisar! Quanto mais detalhes, mais rápido dá para corrigir.
+  - type: dropdown
+    id: programa
+    attributes:
+      label: Onde aconteceu?
+      options:
+        - Jogo
+        - S-Senna Studio
+        - Add-on do Blender (CarKit)
+        - Scripts / instalação
+        - Outro
+    validations:
+      required: true
+  - type: textarea
+    id: o-que-aconteceu
+    attributes:
+      label: O que aconteceu?
+      description: Descreva o problema e o que você esperava que acontecesse.
+    validations:
+      required: true
+  - type: textarea
+    id: passos
+    attributes:
+      label: Como reproduzir
+      placeholder: |
+        1. Abrir ...
+        2. Clicar em ...
+        3. Ver o erro
+    validations:
+      required: true
+  - type: input
+    id: versao
+    attributes:
+      label: Versão
+      description: A versão aparece na tela de título (ex. v0.1.0). Se rodou do código, informe o commit.
+    validations:
+      required: true
+  - type: dropdown
+    id: sistema
+    attributes:
+      label: Sistema operacional
+      options:
+        - Windows 11
+        - Windows 10
+        - Linux
+        - Outro
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: Placa de vídeo e controles
+      description: Ex. "GTX 1060, 2 controles Xbox". Diga também se usou o modo leve.
+  - type: textarea
+    id: log
+    attributes:
+      label: Arquivo de log
+      description: |
+        Cole o conteúdo de `s-senna.log`.
+        Windows: `%APPDATA%\S-Senna\logs\` · Linux: `~/.local/share/S-Senna/logs/`
+      render: text
+  - type: textarea
+    id: extras
+    attributes:
+      label: Capturas de tela ou vídeo
+      description: Arraste os arquivos para cá, se tiver.

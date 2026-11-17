@@ -1,0 +1,26 @@
+# Fim de linha: sempre LF no repositório e na cópia de trabalho (scripts .sh quebram com CRLF).
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Git LFS: binários de arte e áudio.
+*.glb filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
+*.exr filter=lfs diff=lfs merge=lfs -text
+*.hdr filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ttf filter=lfs diff=lfs merge=lfs -text
+*.otf filter=lfs diff=lfs merge=lfs -text
+*.kra filter=lfs diff=lfs merge=lfs -text
+*.psd filter=lfs diff=lfs merge=lfs -text
+
+# Exceções (FORA do LFS): o CI faz checkout sem LFS, então tudo que os testes precisam fica no Git comum.
+# `!attr` devolve o atributo ao padrão (mantém o diff de texto dos JSON/GDScript dessas pastas).
+godot/tests/fixtures/** !filter !diff !merge
+godot/addons/** !filter !diff !merge
