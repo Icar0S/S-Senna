@@ -51,7 +51,7 @@ testes automatizados, CI, scripts para rodar do código-fonte e as licenças.
 
 ## Critérios de aceite
 ### 🤖 Automáticos
-- [ ] CI verde (lint, testes, arquitetura, conteúdo, exportação, captura) no push em `dev` antes do merge na `main`.
+- [x] CI verde (lint, testes, arquitetura, conteúdo, exportação, captura) no push em `dev` antes do merge na `main`.
 - [x] `godot --headless --path godot --quit` sem erros nem avisos de script (conferido por `tools/ci/test.sh`).
 - [x] Teste: boot sem argumento carrega `main_menu`; boot com `--studio` carrega `studio_main` (`tests/unit/test_boot.gd`).
 - [x] Teste: `Log` grava em arquivo (`tests/unit/test_log.gd`).
