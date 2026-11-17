@@ -1,0 +1,22 @@
+{
+  "schema": "wheel",
+  "schema_version": 1,
+  "id": "wheel:base/disco",
+  "display_name": "Disco Aero",
+  "brand": "Kaizen Wheels",
+  "style": "aero",
+  "model": "rim.glb",
+  "rim_in_min": 15,
+  "rim_in_max": 19,
+  "width_in_min": 6.5,
+  "width_in_max": 9.5,
+  "paint_zones": ["rim", "rim_accent"],
+  "default_paint": {
+    "rim": { "finish": "solid", "color": "#F2F2F2" },
+    "rim_accent": { "finish": "metallic", "color": "#3A3D42", "flake": 0.4 }
+  },
+  "price": 1200,
+  "style_points": 2,
+  "unlock": "default",
+  "spinner": false
+}

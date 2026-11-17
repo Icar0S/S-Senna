@@ -1,0 +1,19 @@
+{
+  "schema": "paint_catalog",
+  "schema_version": 1,
+  "finishes": ["solid", "metallic", "pearl", "matte", "satin", "chrome", "candy", "chameleon"],
+  "presets": [
+    { "id": "paint:base/vermelho_corrida", "name_key": "PAINT_RACING_RED", "finish": "solid", "color": "#C8102E" },
+    { "id": "paint:base/laranja_senna", "name_key": "PAINT_SENNA_ORANGE", "finish": "metallic", "color": "#D4421E", "flake": 0.4 },
+    { "id": "paint:base/amarelo_sol", "name_key": "PAINT_SUN_YELLOW", "finish": "solid", "color": "#F2C200" },
+    { "id": "paint:base/verde_neon", "name_key": "PAINT_NEON_GREEN", "finish": "pearl", "color": "#39FF14", "color2": "#00B3A4", "flake": 0.3 },
+    { "id": "paint:base/azul_perolado", "name_key": "PAINT_PEARL_BLUE", "finish": "pearl", "color": "#1A3CFF", "color2": "#9B5CFF", "flake": 0.4 },
+    { "id": "paint:base/azul_noite", "name_key": "PAINT_NIGHT_BLUE", "finish": "metallic", "color": "#0B1E4F", "flake": 0.5 },
+    { "id": "paint:base/branco_gelo", "name_key": "PAINT_ICE_WHITE", "finish": "pearl", "color": "#F2F2F2", "color2": "#7FD3FF", "flake": 0.3 },
+    { "id": "paint:base/prata_classico", "name_key": "PAINT_CLASSIC_SILVER", "finish": "metallic", "color": "#B8BCC2", "flake": 0.6 },
+    { "id": "paint:base/preto_fosco", "name_key": "PAINT_MATTE_BLACK", "finish": "matte", "color": "#151515", "gloss": 0.1 },
+    { "id": "paint:base/grafite_acetinado", "name_key": "PAINT_SATIN_GRAPHITE", "finish": "satin", "color": "#3A3D42", "gloss": 0.5 },
+    { "id": "paint:base/cromo", "name_key": "PAINT_CHROME", "finish": "chrome", "color": "#E8E8E8" },
+    { "id": "paint:base/camaleao_roxo", "name_key": "PAINT_CHAMELEON", "finish": "chameleon", "color": "#5B1E8A", "color2": "#1E8A6E" }
+  ]
+}
