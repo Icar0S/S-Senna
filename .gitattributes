@@ -29,3 +29,5 @@ godot/content/packs/base/cars/prototipo/*.glb !filter !diff !merge
 godot/content/packs/base/wheels/basica_5/*.glb !filter !diff !merge
 godot/content/packs/base/wheels/disco/*.glb !filter !diff !merge
 godot/content/packs/base/parts/universal/spoiler/asa_simples/*.glb !filter !diff !merge
+# HDRI pequeno (1k) do showroom: as capturas de tela do CI precisam dele.
+godot/game/sandbox/showroom/*.hdr !filter !diff !merge

@@ -18,3 +18,25 @@ SAVE_DEBUG_FAILED,Falha ao salvar: %s,Save failed: %s
 SAVE_DEBUG_RECOVERED,Perfil recuperado do backup %s,Profile recovered from backup %s
 SAVE_DEBUG_PROFILE_ITEM,"%s (%s) — %d carros","%s (%s) — %d cars"
 SAVE_DEBUG_DEFAULT_NAME,Jogador,Player
+SHOWROOM_TITLE,Showroom (teste),Showroom (test)
+SHOWROOM_CAR,Carro: %s,Car: %s
+SHOWROOM_SLOT,%s: %s,%s: %s
+SHOWROOM_FINISH,Acabamento %s: %s,Finish %s: %s
+SHOWROOM_PAINT_FINISH,Pintura: %s,Paint: %s
+SHOWROOM_PAINT_COLOR,Cor: %s,Color: %s
+SHOWROOM_WHEEL,Roda: %s,Wheel: %s
+SHOWROOM_STOCK,original,stock
+SHOWROOM_RIM_SIZE,Aro: %d pol,Rim: %d in
+SHOWROOM_WIDTH,Tala: %.1f pol,Width: %.1f in
+SHOWROOM_CAMBER,Cambagem: %.1f°,Camber: %.1f°
+SHOWROOM_OFFSET,Offset: %d mm,Offset: %d mm
+SHOWROOM_HEIGHT,Altura: %d mm,Ride height: %d mm
+SHOWROOM_LIGHTS,Faróis,Headlights
+SHOWROOM_BRAKE,Freio,Brake
+SHOWROOM_TURNTABLE,Girar plataforma,Spin platform
+SHOWROOM_SAVE,Salvar no perfil de teste,Save to test profile
+SHOWROOM_RELOAD,Recarregar do perfil,Reload from profile
+SHOWROOM_SAVED,Salvo no perfil de teste,Saved to the test profile
+SHOWROOM_RELOADED,Recarregado do perfil de teste,Reloaded from the test profile
+SHOWROOM_NOTHING_SAVED,Nada salvo ainda,Nothing saved yet
+SHOWROOM_HELP,Arraste com o mouse para girar · roda do mouse para zoom · analógico direito do controle,Drag with the mouse to orbit · wheel to zoom · right stick

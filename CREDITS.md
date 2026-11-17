@@ -21,7 +21,7 @@ O jogo é feito com o [Godot Engine](https://godotengine.org) (licença MIT).
 
 | Item | Autor | Origem | Licença | Onde é usado |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| HDRI "Studio Small 09" (1k) | Sergej Majboroda | <https://polyhaven.com/a/studio_small_09> | CC0 | `godot/game/sandbox/showroom/studio_small_09_1k.hdr` (iluminação e reflexos do showroom) |
 
 ## Fontes
 
