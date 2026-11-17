@@ -19,10 +19,10 @@ Construir **o coração visual do jogo**: o código que pega uma definição de 
 class_name CarVisual extends Node3D
 signal rebuilt
 func apply_config(config: CarConfig) -> void          # aplica tudo de uma vez
-func set_part(slot: StringName, part_id: StringName) -> void
-func set_part_finish(slot: StringName, finish: StringName) -> void
-func set_paint(zone: StringName, paint: PaintSpec) -> void
-func set_wheels(front: WheelSetup, rear: WheelSetup) -> void
+func set_part(slot: String, part_id: String) -> void   # "" = peça original
+func set_part_finish(slot: String, finish: String) -> void
+func set_paint(zone: String, paint: PaintSpec) -> void
+func set_wheels(front: CarConfig.WheelSetting, rear: CarConfig.WheelSetting) -> void
 func set_ride_height(mm: float) -> void
 func set_lights(headlights: bool, brake: float, reverse: bool) -> void
 func get_wheel_anchors() -> Dictionary                # "FL" -> Transform3D (usado pela física)
@@ -58,14 +58,16 @@ func get_aabb_car_space() -> AABB
 
 ## Critérios de aceite
 ### 🤖 Automáticos
-- [ ] Teste: montar a fixture com a config padrão → nenhum aviso; todas as peças `stock` visíveis, demais escondidas.
-- [ ] Teste: trocar cada slot da fixture para cada variante → visibilidade correta; `hides` respeitado.
-- [ ] Teste: materiais por nome mapeados corretamente; materiais compartilhados são a mesma instância entre dois carros.
-- [ ] Teste: diâmetro externo do pneu constante ao trocar o aro de 15" para 22".
-- [ ] Teste: config salva e recarregada reproduz exatamente o mesmo carro.
-- [ ] Shaders compilam nos dois renderizadores (rodar showroom em Compatibility no CI via captura).
+- [x] Teste: montar a fixture com a config padrão → nenhum aviso; todas as peças `stock` visíveis, demais escondidas (`tests/unit/vehicle/test_car_visual.gd`).
+- [x] Teste: trocar cada slot da fixture para cada variante → visibilidade correta; `hides` respeitado (aerofólio universal no soquete esconde o original).
+- [x] Teste: materiais por nome mapeados corretamente; materiais compartilhados são a mesma instância entre dois carros (e todo material de `conventions.json` tem um material do jogo).
+- [x] Teste: diâmetro externo do pneu constante ao trocar o aro de 15" para 22".
+- [x] Teste: config salva e recarregada reproduz exatamente o mesmo carro.
+- [x] Shaders compilam nos dois renderizadores: o CI captura o showroom com os 8 acabamentos no Compatibility (`tools/scripts/showroom_captures.sh`; a captura falha com `SHADER ERROR`/`SCRIPT ERROR`); Forward+ conferido na GPU do agente.
+- [x] Desempenho (tarefa 9): montar um carro em cache ≈ 1–2 ms (meta 50 ms); trocar uma peça ≈ 0,02 ms (meta 5 ms); malhas iguais compartilhadas (testado).
 ### 🎮 Manuais
-- [ ] O dono acha a pintura bonita no showroom (é o primeiro "uau" do projeto).
+- [ ] O dono acha a pintura bonita no showroom (é o primeiro "uau" do projeto) —
+  `tools\scripts\jogar.bat res://game/sandbox/showroom_sandbox.tscn`.
 
 ## Armadilhas
 - Escala negativa para espelhar rodas: evitar (usar rotação de 180°).
@@ -73,3 +75,19 @@ func get_aabb_car_space() -> AABB
 
 ## Fora do escopo
 Vinis, neon, placa, faróis coloridos (Etapa 08). Física (Etapa 04).
+
+## Notas de implementação (2026-11-17)
+| Item | Como ficou | Motivo |
+|---|---|---|
+| Tipos da API | `String` (em vez de `StringName`) e `CarConfig.WheelSetting` em `set_wheels` | Consistência com `CarConfig`/`ContentDB`; `WheelSetup` é a faixa de rodas do `CarDef`, não a escolha do jogador |
+| Materiais por carro | Pintura (5 zonas), **vidro** e **luzes** são por carro; o resto é compartilhado | O vidro tem cor/escurecimento por carro (`glass` no `CarConfig`) e as luzes têm estado (faróis, freio) |
+| Acabamento de peça | `carbon` → material de carbono compartilhado; `black` → `trim_black`; só nas superfícies `paint_body` da peça | Doc 03 §5 (`finishes`) |
+| `trim_black: body_color` | As superfícies `trim_black` usam a pintura do corpo | Doc 03 §13 |
+| Flocos metálicos | Somem suavemente com a distância (`fwidth`) e viram um leve aumento de metálico | Sem isso a pintura parecia "areia" de longe |
+| Cromo | 82% metálico com um pouco de difuso prateado | Espelho perfeito fica preto em ambiente escuro (garagem, noite) |
+| Offset | Positivo empurra a roda **para fora** (visual); cambagem negativa inclina o topo para dentro | Convenção mais intuitiva na garagem; doc 03 §13 atualizado |
+| Luz de ré | `set_lights(..., reverse)` guarda o estado, mas ainda não há material de ré em `conventions.json` | Entra se/quando a convenção ganhar `light_reverse` |
+| Câmera orbital | `core/camera/orbit_camera.gd` lê mouse e o analógico direito do controle 0 direto | É câmera de depuração/garagem; passa pelo `InputRouter` nas Etapas 07/09 |
+| Gerador | Para-choques do protótipo e da fixture mais baixos | Escondiam os faróis (achado nas capturas) |
+| HDRI | "Studio Small 09" 1k (Poly Haven, CC0), fora do LFS | As capturas do CI precisam dele |
+| Capturas | `screenshot.sh` aceita `-- args` da cena e `RENDERING_METHOD`; `showroom_captures.sh` gera os 8 acabamentos + faróis | Conferência visual e critério "shaders compilam" no CI |

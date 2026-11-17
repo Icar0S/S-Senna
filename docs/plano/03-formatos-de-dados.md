@@ -491,6 +491,8 @@ Definido na Etapa 01 (usado pela `Economy` na Etapa 09 e pelas recompensas nas E
 }
 ```
 - Coordenadas de vinil (`pos`, `scale`) são normalizadas (0..1) na tela daquele lado do carro.
+- Rodas (Etapa 03): `offset_mm` **positivo empurra a roda para fora** (só visual); `camber_deg` negativo inclina o topo
+  da roda para dentro. `wheel_id` vazio = aro original do carro (`rim-stock`).
 - Se um ID não existir mais (mod desativado), o jogo **mantém o ID no save** e mostra a peça original — nunca apaga dados do jogador.
   (`CarConfig.resolve()` devolve a versão "efetiva" com os originais no lugar + a lista de ausências; o save não muda.)
 - Valores aceitos (Etapa 02): uma zona de `paint` pode ter um `PaintSpec` **ou** o texto `body_color`/`stock`;
