@@ -71,6 +71,9 @@ func test_self_check_reports_source_build() -> void:
 	assert_str(str(report["mode"])).is_equal("game")
 	assert_str(str(report["version"])).is_equal(_project_version())
 	assert_bool(report["content_json"]).is_true()
+	assert_int(report["content_cars"]).is_greater_equal(1)
+	assert_int(report["content_errors"]).is_equal(0)
+	assert_bool(report["probe_car_model"]).is_true()
 	# Running from source (not an exported Game build), so the Studio is there.
 	assert_bool(report["studio_present"]).is_true()
 	assert_str(BootSelfCheck.format_output(report)).starts_with("SELF_CHECK {")
