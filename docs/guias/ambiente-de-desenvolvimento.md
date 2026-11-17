@@ -8,7 +8,7 @@ Como rodar o S-Senna a partir do código-fonte, rodar os testes e usar os script
 |---|---|---|---|
 | [Godot](https://godotengine.org/download) (padrão, **sem** .NET) | a do arquivo `.godot-version` (4.7.2) | Rodar o Jogo e o Studio | Sim |
 | [Git](https://git-scm.com) + [Git LFS](https://git-lfs.com) | atuais | Clonar o repositório (`git lfs install` uma vez) | Sim |
-| Python 3.9+ e `pip install -r tools/ci/requirements.txt` | — | Lint (`gdformat`/`gdlint`) e validação de conteúdo | Só para contribuir |
+| Python 3.9+ e `pip install -r tools/ci/requirements.txt` | — | Lint (`gdformat`/`gdlint`) e validação de conteúdo (`check-jsonschema`) | Só para contribuir |
 | Export templates do Godot | a mesma do Godot | Gerar builds (`tools/ci/export.sh`) | Só para exportar |
 
 No Windows, os scripts `.sh` rodam no **Git Bash** (vem com o Git).
@@ -51,7 +51,7 @@ Os logs ficam em `%APPDATA%\S-Senna\logs\s-senna.log` (Windows) ou `~/.local/sha
 ```bash
 tools/ci/lint.sh                 # gdformat --check + gdlint   (tools/ci/lint.sh --fix formata)
 tools/ci/test.sh                 # testes gdUnit4 headless (+ confere que o projeto inicia sem erros/avisos)
-tools/ci/validate_content.sh     # todo .json é JSON válido (schemas a partir da Etapa 01)
+tools/ci/validate_content.sh     # todo .json é JSON válido e bate com o schema de schemas/
 tools/ci/check_architecture.sh   # regras de dependência entre core/, game/ e studio/
 ```
 
@@ -96,11 +96,19 @@ Sempre no modo **Compatibility** (OpenGL), o único que funciona sem placa de v�
   ```
   (`mesa-vulkan-drivers` é opcional; só seria usado para testar o Forward+ por software.)
 
-## 6. GitHub (labels e milestones)
+## 6. Conteúdo gerado por script
+Os modelos de teste e os placeholders do pacote `base` (Protótipo S-Senna, aros, aerofólio) são gerados por código:
+```bash
+tools/fixtures/make_test_car.sh
+```
+O script reescreve os `.glb` e os `car.json` correspondentes e reimporta o projeto. O resultado é determinístico
+(rodar duas vezes gera arquivos idênticos). Mais detalhes em [`pacotes-de-conteudo.md`](pacotes-de-conteudo.md).
+
+## 7. GitHub (labels e milestones)
 `tools/scripts/setup_github.sh` cria as labels (`etapa-NN`, `conteudo`, `bug`, `ideia`, `playtest`) e as milestones
 dos Marcos A–F. Requer o [GitHub CLI](https://cli.github.com) autenticado (`gh auth login`).
 
-## 7. Problemas comuns
+## 8. Problemas comuns
 
 | Sintoma | Causa / solução |
 |---|---|

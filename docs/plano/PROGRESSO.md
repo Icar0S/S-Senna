@@ -4,8 +4,8 @@ Atualizado pelo agente ao final de cada entrega (merge de `dev` na `main`). Marq
 **mesclada** e com os critérios 🎮 aprovados pelo dono.
 
 ## Marco A — Primeiro carro
-- [ ] **00** Fundação do repositório e do projeto Godot — mesclada na `main`; falta só o 🎮 do dono (rodar `jogar.bat` e `studio.bat`)
-- [ ] **01** Núcleo de conteúdo
+- [x] **00** Fundação do repositório e do projeto Godot
+- [x] **01** Núcleo de conteúdo
 - [ ] **02** Sistema de save
 - [ ] **03** Montador de carros e shaders base
 - [ ] **04** Física arcade, câmera e campo de testes — 🎮 sensação de direção aprovada
@@ -53,3 +53,5 @@ Atualizado pelo agente ao final de cada entrega (merge de `dev` na `main`). Marq
 |---|---|---|---|
 | 2026-11-15 | — | — | Plano criado |
 | 2026-11-16 | 00 | `dev` → `main` | Fundação: projeto Godot 4.7.2, boot Jogo/Studio, `Log`, presets de exportação, gdUnit4 6.2.3, scripts e CI. Fluxo de branches mudou para `dev`/`main`. Desvios do plano anotados no arquivo da etapa. |
+| 2026-11-17 | 00 | — | 🎮 `jogar.bat` e `studio.bat` aprovados pelo dono. |
+| 2026-11-17 | 01 | `dev` → `main` | Núcleo de conteúdo: `ContentDB`/`ContentLibrary`, definições tipadas, `ModelLoader`, `ConventionScanner`, JSON Schemas com `check-jsonschema`, gerador do carro de teste e primeiro conteúdo do pacote `base` (protótipo, 2 aros, 1 aerofólio, 12 pinturas, upgrades, economia). Etapa sem itens 🎮. |

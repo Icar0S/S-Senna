@@ -39,14 +39,14 @@ Criar a camada que transforma arquivos de conteúdo em objetos tipados e confiá
 
 ## Critérios de aceite
 ### 🤖 Automáticos
-- [ ] Testes de `from_dict` para cada tipo: válido, campo faltando, tipo errado, valor fora da faixa, campo desconhecido.
-- [ ] Pacote com `priority` maior substitui definição de mesmo ID; alias resolve ID antigo.
-- [ ] `list_parts_for` retorna específicas + universais compatíveis e respeita `exclude`.
-- [ ] `ModelLoader` carrega o `.glb` da fixture por caminho externo (como faria um mod) e por `res://`.
-- [ ] `ConventionScanner` encontra exatamente as peças/soquetes/rodas da fixture.
-- [ ] Varredura de 200 carros falsos em < 300 ms (teste de desempenho com margem).
-- [ ] Build exportada lista e carrega o pacote base.
-- [ ] CI valida JSON Schemas.
+- [x] Testes de `from_dict` para cada tipo: válido, campo faltando, tipo errado, valor fora da faixa, campo desconhecido (`tests/unit/content/test_definitions.gd`).
+- [x] Pacote com `priority` maior substitui definição de mesmo ID; alias resolve ID antigo (`test_content_library.gd`).
+- [x] `list_parts_for` retorna específicas + universais compatíveis e respeita `exclude` (inclusive `exclude` escrito com ID antigo/alias).
+- [x] `ModelLoader` carrega o `.glb` da fixture por caminho externo (copiado para `user://`, como um mod; e por caminho absoluto) e por `res://` (`test_models.gd`).
+- [x] `ConventionScanner` encontra exatamente as peças/soquetes/rodas da fixture e bate com o `car.json` (fixture e protótipo).
+- [x] Varredura de 200 carros falsos em < 300 ms (`tests/integration/test_content_performance.gd`; medido: ~150 ms no Windows, ~80 ms no Linux).
+- [x] Build exportada lista e carrega o pacote base (self-check: `content_errors: 0` e `probe_car_model: true`, conferido em Windows e Linux).
+- [ ] CI valida JSON Schemas (job `content` com `check-jsonschema`) — conferir no push em `dev`.
 
 ## Armadilhas
 - Em builds exportadas, os arquivos importados aparecem como `.import`/`.remap` na listagem de pastas — por isso o índice é baseado nos `.json`.
@@ -54,3 +54,23 @@ Criar a camada que transforma arquivos de conteúdo em objetos tipados e confiá
 
 ## Fora do escopo
 Montagem visual do carro (Etapa 03), Studio (Etapa 06).
+
+## Notas de implementação (2026-11-17)
+| Item | Como ficou | Motivo |
+|---|---|---|
+| Teste de `extras` (tarefa 6) | **Funciona** no Godot 4.7.2: metadata `extras` chega na importação pelo editor e no `GLTFDocument`; o exportador do Godot também grava | Usamos metadata com o nome como reserva, como previsto |
+| `conventions.json` | Ganhou `node_prefixes`, `fixed_prefixes`, `metadata_keys`, `metadata_roles`, `forbidden_name_suffixes`, `part_finishes`, `paint_finishes` | Nada de strings mágicas no `ConventionScanner`; o add-on (Etapa 05) lê o mesmo arquivo. Doc 03 §4 atualizado |
+| `constants.gd` | Classe `Conventions` que **lê** o `conventions.json` (com cache), em vez de gerar constantes | Uma fonte só, sem passo de geração; um teste confere que os papéis do scanner batem com o arquivo |
+| Substituir IDs de outro pacote | Permitido só para pacotes em `depends` | Sem isso um erro de digitação no pacote do ID passaria despercebido; com isso o mod de prioridade maior funciona. Doc 03 §3.1 |
+| `--content-dir` | Aceita um pacote, uma pasta de pacotes ou `content/` com `packs/`; pacote com o mesmo ID de um oficial o substitui | Etapa 06 usa `--content-dir=<repo>/godot/content` para editar o próprio pacote base |
+| Mods habilitados | `ContentScanOptions.enabled_mods` (vazio por enquanto) | `settings.mods.enabled` nasce na Etapa 02 |
+| `economy.json` | Formato definido (doc 03 §12.1) | O plano citava o arquivo, mas não o formato |
+| Gerador de fixtures | `tools/fixtures/make_test_car.gd` (+ `.sh`) gera carro de teste, protótipo do `base`, 2 aros e 1 aerofólio; também escreve os `car.json` | `parts`/`sockets`/`anchors` saem dos mesmos números da geometria (o teste confere modelo × JSON) |
+| Modelos gerados fora do LFS | Exceções no `.gitattributes` para os `.glb` gerados do pacote base | O CI faz checkout sem LFS e precisa deles para testes e exportação |
+| Miniaturas (`thumb.png`) | Ainda não existem | São renderizadas pelo Studio (Etapa 06); campo opcional |
+| Arcos de roda do protótipo | O corpo tem arcos simples (trapézio) | Suficiente para o showroom da Etapa 03; o gerador é fácil de refinar |
+
+Achados úteis para as próximas etapas:
+- **Packed arrays são passados por referência no Godot 4** (`PackedStringArray` guardado em `Dictionary`/variável estática): devolva `.duplicate()` quando o chamador puder modificar. Um teste pegou isso no cache do `Conventions`.
+- O gdUnit4 6.2.3 interrompe o restante de uma suíte depois do primeiro teste que falha — a contagem de testes cai; não é sinal de teste apagado.
+- `Resource.set_path` existe no próprio script: funções estáticas de helpers não podem se chamar `set_path`.

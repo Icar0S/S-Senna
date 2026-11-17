@@ -150,9 +150,11 @@ tests/  ──►  qualquer coisa
 
 ### 5.1 Conteúdo (`core/content/`)
 - `ContentId` — valida e decompõe IDs `tipo:pacote/caminho` (ver `03-formatos-de-dados.md`).
-- `PackDef`, `CarDef`, `PartDef`, `WheelDef`, `VinylDef`, `PaintCatalog`, `TrackDef`, `SoundProfileDef`, `UpgradeTable` — `RefCounted` tipados com `static func from_dict(data: Dictionary, ctx: LoadContext) -> X`.
-- `LoadContext` — caminho base do pacote, versão do schema e lista de erros/avisos (`ContentReport`).
-- `ContentDB` — índice e consultas (`get_car`, `list_cars`, `list_parts_for(car_id, slot)`, `list_wheels`…).
+- `PackDef`, `CarDef`, `PartDef`, `WheelDef`, `VinylDef`, `PaintCatalog`, `PaintSpec`, `TrackDef`, `SoundProfileDef`, `UpgradeTable`, `EconomyDef` — `RefCounted` tipados com `static func from_dict(data: Dictionary, ctx: LoadContext) -> X` (null quando há erro).
+- `DictReader` — leitura tipada e validada de um objeto JSON (obrigatório/tipo errado = erro; fora da faixa = aviso e valor limitado; campo nunca lido = aviso de campo desconhecido). Todas as definições usam.
+- `LoadContext` — arquivo, pasta base, pacote e `depends` (quais IDs o pacote pode declarar) + o `ContentReport` (erros e avisos com arquivo, campo e mensagem em pt-BR).
+- `ContentLibrary` — toda a lógica do banco de conteúdo: descobre pacotes (`ContentScanOptions`), ordena por dependências/prioridade, aplica `aliases`, indexa e responde consultas. Testável sem autoload.
+- `ContentDB` (autoload) — casca fina sobre o `ContentLibrary`: varre no início, registra o relatório no `Log`, sinal `content_reloaded` e `rescan()` (Studio). Consultas: `get_car`, `list_cars`, `list_parts_for(car_id, slot)`, `list_wheels`…
 - `ModelLoader` — carrega modelos: `res://` → `load()` (recurso importado); caminho externo → `GLTFDocument` (com cache).
 - `ConventionScanner` — percorre a cena do modelo e classifica nós (carroceria, peças, soquetes, rodas, materiais) por *metadata* e por nome. **Compartilhado entre o jogo e o Studio.**
 - `conventions.json` — **fonte única** de slots, nomes de materiais, soquetes e orçamentos de polígonos. Lido pelo Godot e copiado para o add-on do Blender.
