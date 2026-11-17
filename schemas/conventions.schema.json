@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — convenções compartilhadas (conventions.json)",
+  "description": "Doc 03 §4. Fonte única de slots, soquetes, materiais e nomes de nós.",
+  "type": "object",
+  "required": [
+    "schema", "schema_version", "slots", "sockets", "wheels", "materials", "material_prefix_keep",
+    "name_separator", "node_prefixes", "fixed_prefixes", "metadata_keys", "metadata_roles",
+    "forbidden_name_suffixes", "part_finishes", "paint_finishes", "budgets"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "tokens": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/token" } },
+    "names": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/name" } }
+  },
+  "properties": {
+    "schema": { "const": "conventions" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "slots": {
+      "type": "object",
+      "required": ["replace", "attach"],
+      "additionalProperties": false,
+      "properties": {
+        "replace": { "$ref": "#/$defs/tokens" },
+        "attach": { "$ref": "#/$defs/tokens" }
+      }
+    },
+    "sockets": { "$ref": "#/$defs/names" },
+    "wheels": { "$ref": "#/$defs/names" },
+    "materials": { "$ref": "#/$defs/tokens" },
+    "material_prefix_keep": { "type": "string", "minLength": 1 },
+    "name_separator": { "type": "string", "minLength": 1, "maxLength": 1 },
+    "node_prefixes": {
+      "type": "object",
+      "required": ["socket", "wheel", "rim", "collision"],
+      "additionalProperties": false,
+      "properties": {
+        "socket": { "$ref": "common.schema.json#/$defs/token" },
+        "wheel": { "$ref": "common.schema.json#/$defs/token" },
+        "rim": { "$ref": "common.schema.json#/$defs/token" },
+        "collision": { "$ref": "common.schema.json#/$defs/token" }
+      }
+    },
+    "fixed_prefixes": { "$ref": "#/$defs/tokens" },
+    "metadata_keys": {
+      "type": "object",
+      "required": ["role", "slot", "variant"],
+      "additionalProperties": false,
+      "properties": {
+        "role": { "$ref": "common.schema.json#/$defs/token" },
+        "slot": { "$ref": "common.schema.json#/$defs/token" },
+        "variant": { "$ref": "common.schema.json#/$defs/token" }
+      }
+    },
+    "metadata_roles": { "$ref": "#/$defs/tokens" },
+    "forbidden_name_suffixes": { "type": "array", "items": { "type": "string", "pattern": "^-[a-z]+$" } },
+    "part_finishes": { "$ref": "#/$defs/tokens" },
+    "paint_finishes": { "$ref": "#/$defs/tokens" },
+    "budgets": {
+      "type": "object",
+      "required": ["car_total_tris", "body_tris", "part_tris", "rim_tris"],
+      "additionalProperties": false,
+      "properties": {
+        "car_total_tris": { "type": "integer", "minimum": 1 },
+        "body_tris": { "type": "integer", "minimum": 1 },
+        "part_tris": { "type": "integer", "minimum": 1 },
+        "rim_tris": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

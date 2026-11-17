@@ -4,3 +4,5 @@ excluded_directories: !!set
   .godot: null
   addons: null
 max-line-length: 100
+# Classes de consulta (ContentLibrary, ContentDB, DictReader) têm muitos métodos pequenos.
+max-public-methods: 30

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — pacote de conteúdo (pack.json)",
+  "description": "Doc 03 §3.1.",
+  "type": "object",
+  "required": ["schema", "schema_version", "id", "name", "version"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "pack" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "id": { "$ref": "common.schema.json#/$defs/pack_name" },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "minLength": 1 },
+    "authors": { "type": "array", "items": { "type": "string" } },
+    "license": { "type": "string" },
+    "depends": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/pack_name" } },
+    "priority": { "type": "integer", "minimum": -1000, "maximum": 1000 },
+    "aliases": {
+      "description": "ID antigo -> ID novo (mesmo tipo).",
+      "type": "object",
+      "propertyNames": { "$ref": "common.schema.json#/$defs/content_id" },
+      "additionalProperties": { "$ref": "common.schema.json#/$defs/content_id" }
+    }
+  }
+}

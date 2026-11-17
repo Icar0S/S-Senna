@@ -50,7 +50,14 @@ jobs:
       - uses: actions/checkout@v7
         with:
           lfs: false
-      - name: Validar JSON
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/ci/requirements.txt
+      - name: Instalar check-jsonschema
+        run: pip install -r tools/ci/requirements.txt
+      - name: Validar JSON e JSON Schemas
         run: tools/ci/validate_content.sh
 
   test:

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — definições compartilhadas",
+  "description": "Tipos usados pelos outros schemas (doc 03). Slots, soquetes e materiais são conferidos contra conventions.json pelo jogo (ContentDB).",
+  "$defs": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "pack_name": { "type": "string", "pattern": "^[a-z0-9_-]+$" },
+    "content_id": {
+      "type": "string",
+      "pattern": "^(car|part|wheel|vinyl|paint|sound|track):[a-z0-9_-]+/[a-z0-9_-]+(/[a-z0-9_-]+)*$"
+    },
+    "car_id": { "type": "string", "pattern": "^car:[a-z0-9_-]+/[a-z0-9_-]+(/[a-z0-9_-]+)*$" },
+    "part_id": { "type": "string", "pattern": "^part:[a-z0-9_-]+/[a-z0-9_-]+(/[a-z0-9_-]+)*$" },
+    "wheel_id": { "type": "string", "pattern": "^wheel:[a-z0-9_-]+/[a-z0-9_-]+(/[a-z0-9_-]+)*$" },
+    "vinyl_id": { "type": "string", "pattern": "^vinyl:[a-z0-9_-]+/[a-z0-9_-]+(/[a-z0-9_-]+)*$" },
+    "paint_id": { "type": "string", "pattern": "^paint:[a-z0-9_-]+/[a-z0-9_-]+(/[a-z0-9_-]+)*$" },
+    "sound_id": { "type": "string", "pattern": "^sound:[a-z0-9_-]+/[a-z0-9_-]+(/[a-z0-9_-]+)*$" },
+    "track_id": { "type": "string", "pattern": "^track:[a-z0-9_-]+/[a-z0-9_-]+(/[a-z0-9_-]+)*$" },
+    "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+    "unlock": { "type": "string", "pattern": "^(default|never|chapter:[0-9]+|event:[a-z0-9_-]+)$" },
+    "relative_path": {
+      "description": "Caminho relativo à pasta do próprio JSON, sem '..' e sem ser absoluto.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![/\\\\])(?![A-Za-z]:)(?!.*\\.\\.)(?!.*://).+$"
+    },
+    "token": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "name": { "type": "string", "pattern": "^[A-Za-z0-9_]+$" },
+    "price": { "type": "integer", "minimum": 0 },
+    "style_points": { "type": "integer", "minimum": 0, "maximum": 10 },
+    "part_finish": { "type": "string", "pattern": "^[a-z]+$" },
+    "paint_spec": {
+      "type": "object",
+      "required": ["finish", "color"],
+      "additionalProperties": false,
+      "properties": {
+        "finish": { "type": "string", "pattern": "^[a-z]+$" },
+        "color": { "$ref": "#/$defs/color" },
+        "color2": { "$ref": "#/$defs/color" },
+        "flake": { "type": "number", "minimum": 0, "maximum": 1 },
+        "gloss": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "paint_map": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/token" },
+      "additionalProperties": { "$ref": "#/$defs/paint_spec" }
+    },
+    "vec3": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3
+    }
+  }
+}

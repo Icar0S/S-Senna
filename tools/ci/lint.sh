@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Lint do GDScript: gdformat --check + gdlint em godot/ (addons/ fica de fora).
+# Lint do GDScript: gdformat --check + gdlint em godot/ e tools/fixtures/ (addons/ fica de fora).
 # Requer o gdtoolkit: pip install -r tools/ci/requirements.txt
 #
 # Uso: tools/ci/lint.sh          confere
@@ -16,12 +16,15 @@ done
 # As pastas excluídas (addons, .godot) ficam em gdformatrc e gdlintrc, lidos da raiz.
 cd "$REPO_ROOT"
 
+# GDScript do projeto e dos geradores de tools/fixtures.
+targets=(godot tools/fixtures)
+
 if [ "${1:-}" = "--fix" ]; then
-  gdformat godot
+  gdformat "${targets[@]}"
 else
   info "== gdformat --check"
-  gdformat --check godot
+  gdformat --check "${targets[@]}"
 fi
 
 info "== gdlint"
-gdlint godot
+gdlint "${targets[@]}"
