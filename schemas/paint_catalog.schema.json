@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — catálogo de pinturas (paints.json)",
+  "description": "Doc 03 §9. Os acabamentos válidos ficam em conventions.json (paint_finishes).",
+  "type": "object",
+  "required": ["schema", "schema_version", "presets"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "paint_catalog" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "finishes": { "type": "array", "items": { "type": "string", "pattern": "^[a-z]+$" } },
+    "presets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name_key", "finish", "color"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "common.schema.json#/$defs/paint_id" },
+          "name_key": { "type": "string", "minLength": 1 },
+          "finish": { "type": "string", "pattern": "^[a-z]+$" },
+          "color": { "$ref": "common.schema.json#/$defs/color" },
+          "color2": { "$ref": "common.schema.json#/$defs/color" },
+          "flake": { "type": "number", "minimum": 0, "maximum": 1 },
+          "gloss": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    }
+  }
+}

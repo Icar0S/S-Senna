@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — roda/aro (wheel.json)",
+  "description": "Doc 03 §7. O aro é modelado em 18\" x 8\", face externa para +X.",
+  "type": "object",
+  "required": ["schema", "schema_version", "id", "display_name", "model"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "wheel" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "id": { "$ref": "common.schema.json#/$defs/wheel_id" },
+    "display_name": { "type": "string", "minLength": 1 },
+    "brand": { "type": "string" },
+    "style": { "enum": ["esportiva", "multi_raios", "deep_dish", "classica", "aero", "luxo", "off_road"] },
+    "model": { "$ref": "common.schema.json#/$defs/relative_path" },
+    "thumbnail": { "$ref": "common.schema.json#/$defs/relative_path" },
+    "rim_in_min": { "type": "integer", "minimum": 10, "maximum": 30 },
+    "rim_in_max": { "type": "integer", "minimum": 10, "maximum": 30 },
+    "width_in_min": { "type": "number", "minimum": 4, "maximum": 15 },
+    "width_in_max": { "type": "number", "minimum": 4, "maximum": 15 },
+    "paint_zones": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/token" } },
+    "default_paint": { "$ref": "common.schema.json#/$defs/paint_map" },
+    "price": { "$ref": "common.schema.json#/$defs/price" },
+    "style_points": { "$ref": "common.schema.json#/$defs/style_points" },
+    "unlock": { "$ref": "common.schema.json#/$defs/unlock" },
+    "spinner": { "type": "boolean" }
+  }
+}

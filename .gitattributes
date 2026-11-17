@@ -24,3 +24,8 @@
 # `!attr` devolve o atributo ao padrão (mantém o diff de texto dos JSON/GDScript dessas pastas).
 godot/tests/fixtures/** !filter !diff !merge
 godot/addons/** !filter !diff !merge
+# Modelos pequenos GERADOS por tools/fixtures/make_test_car.gd (o CI e a exportação precisam deles).
+godot/content/packs/base/cars/prototipo/*.glb !filter !diff !merge
+godot/content/packs/base/wheels/basica_5/*.glb !filter !diff !merge
+godot/content/packs/base/wheels/disco/*.glb !filter !diff !merge
+godot/content/packs/base/parts/universal/spoiler/asa_simples/*.glb !filter !diff !merge

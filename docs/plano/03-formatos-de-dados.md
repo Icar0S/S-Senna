@@ -69,6 +69,21 @@ Mods ficam em `user://mods/<pacote>/` com a mesma estrutura.
 }
 ```
 - `priority`: maior vence quando dois pacotes definem o mesmo ID (permite mods que substituem conteúdo).
+  Com a mesma prioridade, vale o primeiro carregado (e o jogo avisa).
+- Um pacote só pode declarar IDs do **próprio** pacote ou de pacotes listados em `depends`. Exemplo: um mod que
+  substitui `car:base/prototipo` precisa de `"depends": ["base"]` e `priority` maior que a do `base`.
+- Ordem de carga: dependências primeiro; entre pacotes prontos ao mesmo tempo, menor `priority` primeiro (e depois o ID).
+  Dependência ausente ou circular → o pacote é ignorado, com erro no relatório.
+
+### 3.2 De onde os pacotes vêm
+| Fonte | Pasta | Quando carrega |
+|---|---|---|
+| Oficial | `res://content/packs/*` | sempre |
+| Mods | `user://mods/*` | só os IDs listados em `settings.mods.enabled` (ligado na Etapa 02) |
+| Pasta extra | `--content-dir=<pasta>` | sempre; aceita um pacote, uma pasta de pacotes ou uma pasta `content/` com `packs/`. Se tiver um pacote com o mesmo ID de um oficial, **substitui** o oficial (é assim que o Studio edita o conteúdo do repositório) |
+
+O índice é montado só a partir dos `.json` (rápido; em builds exportadas os modelos aparecem como `.import`/`.remap`).
+Modelos `.glb` só são abertos sob demanda (`ModelLoader`).
 
 ---
 
@@ -95,9 +110,21 @@ pelo add-on do Blender e pelo CI.
                 "interior", "rim", "rim_accent", "caliper", "plate"],
   "material_prefix_keep": "tex_",
   "name_separator": "-",
+  "node_prefixes": { "socket": "socket", "wheel": "wheel", "rim": "rim", "collision": "collision" },
+  "fixed_prefixes": ["glass", "interior"],
+  "metadata_keys": { "role": "ss_role", "slot": "ss_slot", "variant": "ss_variant" },
+  "metadata_roles": ["part", "socket", "wheel", "rim", "collision", "fixed"],
+  "forbidden_name_suffixes": ["-col", "-colonly", "-convcol", "-convcolonly", "-rigid", "-vehicle", "-wheel",
+                              "-navmesh", "-occ", "-occonly", "-noimp", "-loop", "-cycle"],
+  "part_finishes": ["paint", "carbon", "black"],
+  "paint_finishes": ["solid", "metallic", "pearl", "matte", "satin", "chrome", "candy", "chameleon"],
   "budgets": { "car_total_tris": 45000, "body_tris": 35000, "part_tris": 4000, "rim_tris": 4000 }
 }
 ```
+- `node_prefixes`, `fixed_prefixes`, `metadata_keys`, `metadata_roles` e `forbidden_name_suffixes` (Etapa 01): tudo o que
+  o `ConventionScanner` e o validador do add-on usam para ler o `.glb` — nada disso fica escrito no código.
+- `part_finishes` (acabamentos de peça) e `paint_finishes` (acabamentos de pintura, usados pelo shader) também moram aqui;
+  o `paints.json` só pode listar acabamentos desta lista.
 
 ### 4.1 Slots (onde as peças encaixam)
 | Slot | Tipo | Nome no jogo | Observação |
@@ -156,6 +183,9 @@ Separador **`-`** (hífen). Ponto (`.`) é proibido porque o Godot não aceita p
 | Vidros, interior | `glass-stock`, `interior-stock` | partes fixas podem ficar dentro de `body-stock` |
 
 - O add-on do Blender também grava **propriedades personalizadas** (`ss_role`, `ss_slot`, `ss_variant`) que chegam ao Godot como *metadata* (glTF `extras`). O jogo usa a metadata quando existir e o nome como reserva.
+  - Confirmado na Etapa 01 (Godot 4.7.2): os `extras` dos nós chegam como metadata `extras` tanto na importação pelo editor quanto no `GLTFDocument` em tempo de execução, e o exportador glTF do Godot também os grava.
+  - `ss_role` ∈ `metadata_roles`. Significado de `ss_slot` por papel: **peça** → slot (`bumper_front`); **soquete** → nome do soquete (`spoiler`); **roda** → posição (`FL`). `ss_variant`: variante da peça (`kit01`). Campo ausente na metadata é completado pelo nome do nó.
+  - Outras propriedades numéricas de um soquete (ex.: `width_m`, `length_m`) viram os parâmetros do soquete.
 - ⚠️ Não terminar nomes com os sufixos de importação do Godot (`-col`, `-colonly`, `-convcol`, `-convcolonly`, `-rigid`, `-vehicle`, `-wheel`, `-navmesh`, `-occ`, `-occonly`, `-noimp`, `-loop`, `-cycle`) — o Godot interpretaria como instrução de importação. O validador do add-on e do Studio bloqueia isso.
 
 ---
@@ -395,6 +425,28 @@ Cada nó de layout na cena contém: `Checkpoints` (Area3D numerados), `RacingLin
 }
 ```
 Preço do upgrade = preço do carro × fator do nível (com mínimo definido em `economy.json`).
+- Efeitos conhecidos: `power_pct`, `torque_pct`, `shift_time_pct`, `handling_add`, `grip_add`, `braking_add`, `nitro_capacity_s`, `mass_pct` (outro nome gera aviso).
+- Cada categoria precisa de exatamente um objeto de efeitos por nível; `price_factor_per_level` também.
+
+## 12.1 Economia — `economy.json`
+Definido na Etapa 01 (usado pela `Economy` na Etapa 09 e pelas recompensas nas Etapas 11/13).
+```json
+{
+  "schema": "economy",
+  "schema_version": 1,
+  "starting_money": 15000,
+  "sell_factor": 0.5,                        // fração do preço devolvida ao vender (0..1)
+  "upgrade_min_price": 500,
+  "wheel_default_price": 1000,               // rodas sem "price"
+  "vinyl_default_price": 300,                // vinis sem "price"
+  "part_default_price": { "bumper_front": 1200, "spoiler": 1200, "lip_front": 500 },   // por slot
+  "category_price_factor": { "jdm": 1.0, "euro": 1.15, "super": 1.6 },              // por categoria de carro
+  "pi_classes": { "D": 0, "C": 400, "B": 550, "A": 700, "S": 800, "S+": 900 },      // índice mínimo de cada classe
+  "race_reward_base": { "circuit": 3000, "sprint": 2500, "drag": 1500, "drift": 2000, "time_attack": 1800 }
+}
+```
+- Preço padrão de uma peça sem `price` = `part_default_price[slot]` × `category_price_factor[categoria do carro]`.
+- Quando vários pacotes têm `upgrades.json`/`economy.json`, vale o de maior `priority`.
 
 ---
 

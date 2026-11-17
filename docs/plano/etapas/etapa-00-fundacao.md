@@ -58,7 +58,7 @@ testes automatizados, CI, scripts para rodar do código-fonte e as licenças.
 - [x] Exportação "Jogo - Linux" e "Studio - Linux" geram executáveis; a build do Jogo **não** contém `studio/`; o JSON de teste está presente (`tools/ci/export.sh`, conferido em Linux e Windows).
 - [x] `screenshot.sh` gera um PNG da tela de título.
 ### 🎮 Manuais (dono)
-- [ ] Rodar `jogar.bat` e `studio.bat` no Windows com o Godot instalado (defina a variável `GODOT` ou ponha o `godot.exe` no PATH).
+- [x] Rodar `jogar.bat` e `studio.bat` no Windows com o Godot instalado (defina a variável `GODOT` ou ponha o `godot.exe` no PATH) — aprovado pelo dono em 2026-11-17.
 - [ ] Rodar `tools/scripts/setup_github.sh` (labels e milestones) e trocar a branch padrão do GitHub para `main`.
 
 ## Testes a escrever

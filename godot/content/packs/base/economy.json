@@ -1,0 +1,42 @@
+{
+  "schema": "economy",
+  "schema_version": 1,
+  "starting_money": 15000,
+  "sell_factor": 0.5,
+  "upgrade_min_price": 500,
+  "wheel_default_price": 1000,
+  "vinyl_default_price": 300,
+  "part_default_price": {
+    "body": 8000,
+    "bumper_front": 1200,
+    "bumper_rear": 1100,
+    "side_skirts": 900,
+    "hood": 1000,
+    "spoiler": 1200,
+    "mirrors": 300,
+    "headlights": 600,
+    "taillights": 500,
+    "fenders": 1500,
+    "roof": 900,
+    "trunk": 700,
+    "exhaust": 600,
+    "grille": 300,
+    "lip_front": 500,
+    "lip_rear": 500,
+    "canards": 400,
+    "hood_scoop": 450,
+    "roof_scoop": 450,
+    "wing_universal": 1500
+  },
+  "category_price_factor": {
+    "jdm": 1.0,
+    "euro": 1.15,
+    "muscle": 1.0,
+    "super": 1.6,
+    "classico": 1.1,
+    "utilitario": 0.9,
+    "outro": 1.0
+  },
+  "pi_classes": { "D": 0, "C": 400, "B": 550, "A": 700, "S": 800, "S+": 900 },
+  "race_reward_base": { "circuit": 3000, "sprint": 2500, "drag": 1500, "drift": 2000, "time_attack": 1800 }
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — economia (economy.json)",
+  "description": "Doc 03 §12.1.",
+  "type": "object",
+  "required": ["schema", "schema_version", "starting_money", "sell_factor", "part_default_price"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "economy" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "starting_money": { "type": "integer", "minimum": 0 },
+    "sell_factor": { "type": "number", "minimum": 0, "maximum": 1 },
+    "upgrade_min_price": { "type": "integer", "minimum": 0 },
+    "wheel_default_price": { "type": "integer", "minimum": 0 },
+    "vinyl_default_price": { "type": "integer", "minimum": 0 },
+    "part_default_price": {
+      "type": "object",
+      "propertyNames": { "$ref": "common.schema.json#/$defs/token" },
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "category_price_factor": {
+      "type": "object",
+      "propertyNames": { "enum": ["jdm", "euro", "muscle", "super", "classico", "utilitario", "outro"] },
+      "additionalProperties": { "type": "number", "minimum": 0, "maximum": 10 }
+    },
+    "pi_classes": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "race_reward_base": {
+      "type": "object",
+      "propertyNames": { "enum": ["circuit", "sprint", "drag", "drift", "time_attack"] },
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    }
+  }
+}

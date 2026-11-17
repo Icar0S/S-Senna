@@ -23,3 +23,7 @@ venv/
 Thumbs.db
 .vscode/
 .idea/
+
+# Variáveis locais (podem conter segredos)
+.env
+.env.*

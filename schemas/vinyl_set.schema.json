@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — conjunto de vinis (vinyls.json)",
+  "description": "Doc 03 §8. Um arquivo por categoria.",
+  "type": "object",
+  "required": ["schema", "schema_version", "category", "vinyls"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "vinyl_set" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "category": { "$ref": "common.schema.json#/$defs/pack_name" },
+    "category_name_key": { "type": "string" },
+    "vinyls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "file"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "common.schema.json#/$defs/vinyl_id" },
+          "file": { "$ref": "common.schema.json#/$defs/relative_path" },
+          "colors": { "type": "integer", "minimum": 0, "maximum": 3 },
+          "price": { "$ref": "common.schema.json#/$defs/price" },
+          "style_points": { "$ref": "common.schema.json#/$defs/style_points" },
+          "unlock": { "$ref": "common.schema.json#/$defs/unlock" }
+        }
+      }
+    }
+  }
+}

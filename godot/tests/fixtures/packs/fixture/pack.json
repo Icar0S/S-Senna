@@ -1,0 +1,12 @@
+{
+  "schema": "pack",
+  "schema_version": 1,
+  "id": "fixture",
+  "name": "Pacote de teste",
+  "version": "1.0.0",
+  "authors": ["Equipe S-Senna"],
+  "license": "Ver LICENSE-ASSETS.md",
+  "depends": [],
+  "priority": 0,
+  "aliases": { "car:fixture/cunha_antiga": "car:fixture/cunha" }
+}

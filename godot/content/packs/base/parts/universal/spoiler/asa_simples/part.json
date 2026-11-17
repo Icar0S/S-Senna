@@ -1,0 +1,21 @@
+{
+  "schema": "part",
+  "schema_version": 1,
+  "id": "part:base/universal/spoiler/asa_simples",
+  "slot": "spoiler",
+  "display_name": "Asa Simples",
+  "brand": "Kaizen Aero",
+  "model": "model.glb",
+  "fit": {
+    "socket": "spoiler",
+    "reference_width_m": 1.4,
+    "scale_x_min": 0.85,
+    "scale_x_max": 1.15
+  },
+  "compatible": { "cars": "*", "exclude": [] },
+  "rules": { "hides": ["spoiler"], "requires": [], "conflicts": [] },
+  "finishes": ["paint", "carbon", "black"],
+  "price": 1800,
+  "style_points": 2,
+  "unlock": "default"
+}

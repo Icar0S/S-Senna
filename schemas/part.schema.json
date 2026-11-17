@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — peça universal (part.json)",
+  "description": "Doc 03 §6.",
+  "type": "object",
+  "required": ["schema", "schema_version", "id", "slot", "display_name", "model"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "part" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "id": { "$ref": "common.schema.json#/$defs/part_id" },
+    "slot": { "$ref": "common.schema.json#/$defs/token" },
+    "display_name": { "type": "string", "minLength": 1 },
+    "brand": { "type": "string" },
+    "model": { "$ref": "common.schema.json#/$defs/relative_path" },
+    "thumbnail": { "$ref": "common.schema.json#/$defs/relative_path" },
+    "fit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "socket": { "$ref": "common.schema.json#/$defs/name" },
+        "reference_width_m": { "type": "number", "minimum": 0, "maximum": 5 },
+        "scale_x_min": { "type": "number", "minimum": 0.5, "maximum": 1 },
+        "scale_x_max": { "type": "number", "minimum": 1, "maximum": 2 }
+      }
+    },
+    "compatible": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cars": {
+          "oneOf": [
+            { "const": "*" },
+            { "type": "array", "items": { "$ref": "common.schema.json#/$defs/car_id" } }
+          ]
+        },
+        "exclude": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/car_id" } }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hides": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/token" } },
+        "requires": { "type": "array", "items": { "type": "string" } },
+        "conflicts": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "finishes": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/part_finish" } },
+    "price": { "$ref": "common.schema.json#/$defs/price" },
+    "style_points": { "$ref": "common.schema.json#/$defs/style_points" },
+    "unlock": { "$ref": "common.schema.json#/$defs/unlock" }
+  }
+}

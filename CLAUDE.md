@@ -34,6 +34,7 @@ tools/ci/validate_content.sh        # JSON Schemas do conteúdo
 tools/ci/check_architecture.sh      # regras de dependência
 tools/ci/export.sh [linux|windows|all]   # exporta Jogo e Studio e confere o conteúdo das builds
 tools/scripts/screenshot.sh <cena.tscn> <saida.png>   # captura para conferência visual
+tools/fixtures/make_test_car.sh     # regera os modelos procedurais (fixture + protótipo, aros, aerofólio)
 godot --path godot                  # rodar o jogo
 godot --path godot -- --studio      # rodar o Studio
 ```

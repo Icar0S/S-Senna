@@ -1,0 +1,22 @@
+{
+  "schema": "wheel",
+  "schema_version": 1,
+  "id": "wheel:base/basica_5",
+  "display_name": "Básica 5",
+  "brand": "Kaizen Wheels",
+  "style": "esportiva",
+  "model": "rim.glb",
+  "rim_in_min": 15,
+  "rim_in_max": 20,
+  "width_in_min": 6.5,
+  "width_in_max": 10.0,
+  "paint_zones": ["rim", "rim_accent"],
+  "default_paint": {
+    "rim": { "finish": "metallic", "color": "#B8BCC2", "flake": 0.3 },
+    "rim_accent": { "finish": "chrome", "color": "#E8E8E8" }
+  },
+  "price": 900,
+  "style_points": 1,
+  "unlock": "default",
+  "spinner": false
+}

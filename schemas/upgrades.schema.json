@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — upgrades de performance (upgrades.json)",
+  "description": "Doc 03 §12. Cada categoria tem um objeto de efeitos por nível.",
+  "type": "object",
+  "required": ["schema", "schema_version", "levels", "categories", "price_factor_per_level"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "upgrades" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "levels": { "type": "array", "minItems": 1, "items": { "$ref": "common.schema.json#/$defs/token" } },
+    "categories": {
+      "type": "object",
+      "propertyNames": { "$ref": "common.schema.json#/$defs/token" },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["effects_per_level"],
+        "additionalProperties": false,
+        "properties": {
+          "effects_per_level": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "propertyNames": {
+                "enum": ["power_pct", "torque_pct", "shift_time_pct", "handling_add", "grip_add", "braking_add", "nitro_capacity_s", "mass_pct"]
+              },
+              "additionalProperties": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "price_factor_per_level": { "type": "array", "items": { "type": "number", "minimum": 0 } }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — carro (car.json)",
+  "description": "Doc 03 §5. parts, sockets e wheels.anchors são escritos pelo Studio a partir do .glb.",
+  "type": "object",
+  "required": ["schema", "schema_version", "id", "display_name", "model", "dimensions_mm", "parts", "wheels", "stats"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "car" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "id": { "$ref": "common.schema.json#/$defs/car_id" },
+    "display_name": { "type": "string", "minLength": 1 },
+    "manufacturer": { "type": "string" },
+    "year": { "type": "integer", "minimum": 0, "maximum": 2100 },
+    "country": { "type": "string" },
+    "category": { "enum": ["jdm", "euro", "muscle", "super", "classico", "utilitario", "outro"] },
+    "description_key": { "type": "string" },
+    "model": { "$ref": "common.schema.json#/$defs/relative_path" },
+    "thumbnail": { "$ref": "common.schema.json#/$defs/relative_path" },
+    "dimensions_mm": {
+      "type": "object",
+      "required": ["length", "width", "height", "wheelbase"],
+      "additionalProperties": false,
+      "properties": {
+        "length": { "type": "integer", "minimum": 1000, "maximum": 10000 },
+        "width": { "type": "integer", "minimum": 500, "maximum": 4000 },
+        "height": { "type": "integer", "minimum": 500, "maximum": 4000 },
+        "wheelbase": { "type": "integer", "minimum": 500, "maximum": 8000 }
+      }
+    },
+    "parts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["slot", "variant"],
+        "additionalProperties": false,
+        "properties": {
+          "slot": { "$ref": "common.schema.json#/$defs/token" },
+          "variant": { "$ref": "common.schema.json#/$defs/token" },
+          "name": { "type": "string" },
+          "price": { "$ref": "common.schema.json#/$defs/price" },
+          "style_points": { "$ref": "common.schema.json#/$defs/style_points" },
+          "unlock": { "$ref": "common.schema.json#/$defs/unlock" },
+          "finishes": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/part_finish" } },
+          "accepts_universal": { "type": "boolean" }
+        }
+      }
+    },
+    "sockets": {
+      "type": "object",
+      "propertyNames": { "$ref": "common.schema.json#/$defs/name" },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": { "type": "number", "minimum": 0 }
+      }
+    },
+    "wheels": {
+      "type": "object",
+      "required": ["anchors", "tire_outer_diameter_m", "stock"],
+      "additionalProperties": false,
+      "properties": {
+        "anchors": {
+          "type": "object",
+          "required": ["FL", "FR", "RL", "RR"],
+          "additionalProperties": false,
+          "properties": {
+            "FL": { "$ref": "common.schema.json#/$defs/vec3" },
+            "FR": { "$ref": "common.schema.json#/$defs/vec3" },
+            "RL": { "$ref": "common.schema.json#/$defs/vec3" },
+            "RR": { "$ref": "common.schema.json#/$defs/vec3" }
+          }
+        },
+        "tire_outer_diameter_m": { "type": "number", "minimum": 0.3, "maximum": 1.5 },
+        "stock": {
+          "type": "object",
+          "required": ["rim_in", "width_in"],
+          "additionalProperties": false,
+          "properties": {
+            "rim": { "type": "string" },
+            "rim_in": { "type": "integer", "minimum": 10, "maximum": 30 },
+            "width_in": { "type": "number", "minimum": 4, "maximum": 15 }
+          }
+        },
+        "rim_in_min": { "type": "integer", "minimum": 10, "maximum": 30 },
+        "rim_in_max": { "type": "integer", "minimum": 10, "maximum": 30 },
+        "width_in_min": { "type": "number", "minimum": 4, "maximum": 15 },
+        "width_in_max": { "type": "number", "minimum": 4, "maximum": 15 },
+        "max_offset_mm": { "type": "number", "minimum": 0, "maximum": 100 },
+        "max_camber_deg": { "type": "number", "minimum": 0, "maximum": 20 }
+      }
+    },
+    "paint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "zones": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/token" } },
+        "default": { "$ref": "common.schema.json#/$defs/paint_map" }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "required": ["power_hp", "torque_nm", "redline_rpm", "mass_kg", "drivetrain", "top_speed_kmh"],
+      "additionalProperties": false,
+      "properties": {
+        "power_hp": { "type": "number", "minimum": 1, "maximum": 3000 },
+        "torque_nm": { "type": "number", "minimum": 1, "maximum": 3000 },
+        "redline_rpm": { "type": "integer", "minimum": 1000, "maximum": 20000 },
+        "mass_kg": { "type": "number", "minimum": 300, "maximum": 5000 },
+        "weight_front_pct": { "type": "number", "minimum": 20, "maximum": 80 },
+        "drivetrain": { "enum": ["FWD", "RWD", "AWD"] },
+        "gears": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "top_speed_kmh": { "type": "number", "minimum": 30, "maximum": 600 },
+        "grip": { "type": "number", "minimum": 0, "maximum": 1 },
+        "handling": { "type": "number", "minimum": 0, "maximum": 1 },
+        "braking": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "sound": { "$ref": "common.schema.json#/$defs/sound_id" },
+    "economy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "price": { "$ref": "common.schema.json#/$defs/price" },
+        "unlock": { "$ref": "common.schema.json#/$defs/unlock" }
+      }
+    },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "garage_distance_m": { "type": "number", "minimum": 2, "maximum": 15 } }
+    },
+    "collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "has_miniature": { "type": "boolean" },
+        "miniature_brand": { "type": "string" },
+        "scale": { "type": "string" },
+        "acquired": { "type": "string" },
+        "photo": { "$ref": "common.schema.json#/$defs/relative_path" },
+        "notes": { "type": "string" },
+        "livery_preset": { "$ref": "common.schema.json#/$defs/relative_path" }
+      }
+    },
+    "credits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "model_author": { "type": "string" },
+        "license": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "tuning_overrides": { "type": "object" }
+  }
+}

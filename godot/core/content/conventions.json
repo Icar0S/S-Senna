@@ -1,0 +1,27 @@
+{
+  "schema": "conventions",
+  "schema_version": 1,
+  "slots": {
+    "replace": ["body", "bumper_front", "bumper_rear", "side_skirts", "hood", "spoiler", "mirrors",
+                "headlights", "taillights", "fenders", "roof", "trunk", "exhaust", "grille"],
+    "attach": ["lip_front", "lip_rear", "canards", "hood_scoop", "roof_scoop", "wing_universal"]
+  },
+  "sockets": ["spoiler", "exhaust_L", "exhaust_R", "lip_front", "lip_rear", "canard_L", "canard_R",
+              "hood_scoop", "roof_scoop", "plate_front", "plate_rear", "neon", "cam_hood", "cam_bumper",
+              "light_head_L", "light_head_R", "light_tail_L", "light_tail_R"],
+  "wheels": ["FL", "FR", "RL", "RR"],
+  "materials": ["paint_body", "paint_secondary", "trim_black", "carbon", "chrome", "metal_dark",
+                "glass", "glass_light", "light_head", "light_tail", "light_signal", "rubber",
+                "interior", "rim", "rim_accent", "caliper", "plate"],
+  "material_prefix_keep": "tex_",
+  "name_separator": "-",
+  "node_prefixes": { "socket": "socket", "wheel": "wheel", "rim": "rim", "collision": "collision" },
+  "fixed_prefixes": ["glass", "interior"],
+  "metadata_keys": { "role": "ss_role", "slot": "ss_slot", "variant": "ss_variant" },
+  "metadata_roles": ["part", "socket", "wheel", "rim", "collision", "fixed"],
+  "forbidden_name_suffixes": ["-col", "-colonly", "-convcol", "-convcolonly", "-rigid", "-vehicle", "-wheel",
+                              "-navmesh", "-occ", "-occonly", "-noimp", "-loop", "-cycle"],
+  "part_finishes": ["paint", "carbon", "black"],
+  "paint_finishes": ["solid", "metallic", "pearl", "matte", "satin", "chrome", "candy", "chameleon"],
+  "budgets": { "car_total_tris": 45000, "body_tris": 35000, "part_tris": 4000, "rim_tris": 4000 }
+}

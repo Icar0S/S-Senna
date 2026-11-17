@@ -1,0 +1,16 @@
+{
+  "schema": "upgrades",
+  "schema_version": 1,
+  "levels": ["stock", "rua", "pro", "elite"],
+  "categories": {
+    "engine": { "effects_per_level": [{}, { "power_pct": 8 }, { "power_pct": 18 }, { "power_pct": 30 }] },
+    "turbo": { "effects_per_level": [{}, { "power_pct": 6, "torque_pct": 8 }, { "power_pct": 14, "torque_pct": 18 }, { "power_pct": 24, "torque_pct": 30 }] },
+    "transmission": { "effects_per_level": [{}, { "shift_time_pct": -15 }, { "shift_time_pct": -30 }, { "shift_time_pct": -45 }] },
+    "suspension": { "effects_per_level": [{}, { "handling_add": 0.04 }, { "handling_add": 0.08 }, { "handling_add": 0.12 }] },
+    "tires": { "effects_per_level": [{}, { "grip_add": 0.04 }, { "grip_add": 0.08 }, { "grip_add": 0.13 }] },
+    "brakes": { "effects_per_level": [{}, { "braking_add": 0.05 }, { "braking_add": 0.10 }, { "braking_add": 0.15 }] },
+    "nitrous": { "effects_per_level": [{ "nitro_capacity_s": 0 }, { "nitro_capacity_s": 3 }, { "nitro_capacity_s": 5 }, { "nitro_capacity_s": 7 }] },
+    "weight": { "effects_per_level": [{}, { "mass_pct": -3 }, { "mass_pct": -6 }, { "mass_pct": -10 }] }
+  },
+  "price_factor_per_level": [0, 0.06, 0.14, 0.25]
+}

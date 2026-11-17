@@ -8,7 +8,8 @@
 #
 # Conferência (só para a plataforma desta máquina, pois precisa executar a build):
 # roda cada executável com `-- --self-check` e verifica que
-#   - o JSON de conteúdo (res://content/packs/base/pack.json) está na build;
+#   - o JSON de conteúdo (res://content/packs/base/pack.json) está na build, o ContentDB
+#     carrega o pacote base sem erros e o modelo do carro protótipo abre;
 #   - a build do Jogo NÃO contém studio/; a do Studio contém;
 #   - nenhuma build contém tests/.
 set -euo pipefail
@@ -61,6 +62,8 @@ verify_build() {
   info "   $line"
   expect_field "$binary" "$line" mode "\"$expected_mode\""
   expect_field "$binary" "$line" content_json true
+  expect_field "$binary" "$line" content_errors 0
+  expect_field "$binary" "$line" probe_car_model true
   expect_field "$binary" "$line" studio_present "$expected_studio"
   expect_field "$binary" "$line" tests_present false
 }
