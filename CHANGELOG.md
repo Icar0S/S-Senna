@@ -7,6 +7,17 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 ## [Não lançado]
 
 ### Adicionado
+- **Etapa 03 — Montador de carros e shaders**
+  - O carro aparece montado: peças de cada slot (inclusive peças universais presas nos soquetes, esticadas à largura
+    do carro), pintura, vidros, faróis e lanternas acendendo.
+  - Pintura com 8 acabamentos (sólido, metálico, perolado, fosco, acetinado, cromo, candy e camaleão), verniz e
+    flocos metálicos; carbono procedural; tudo funciona no modo normal e no modo leve.
+  - Rodas completas: pneu gerado pelo jogo (o diâmetro externo não muda ao trocar o aro), aros da biblioteca ou o
+    original, disco e pinça de freio, tamanho de aro, tala, offset e cambagem.
+  - Altura (rebaixar/levantar) e acabamento de peça (pintado, carbono, preto).
+  - Showroom de teste com HDRI de estúdio, plataforma giratória, câmera orbital e painel para trocar tudo e
+    salvar/recarregar no perfil de teste (`res://game/sandbox/showroom_sandbox.tscn`).
+  - Capturas automáticas de cada acabamento (`tools/scripts/showroom_captures.sh`), também no CI.
 - **Etapa 02 — Sistema de save**
   - Perfis salvos com segurança: gravação atômica, 3 backups automáticos e checksum; se o arquivo principal
     estragar, o jogo recupera do backup e avisa.

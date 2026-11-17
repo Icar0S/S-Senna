@@ -177,6 +177,9 @@ Vehicle (RigidBody3D)
 └── VehicleFX                      ← fumaça, faíscas, rastros de luz, nitro
 ```
 - `CarAssembler` — monta o visual (peças, rodas, materiais, vinis). Não sabe nada de física.
+- `CarVisual` — o carro na tela: `Body` (move com a altura) → modelo; `Wheels` → 4 `WheelVisual` (cubo que gira com pneu, aro e disco; pinça fixa). API em `etapa-03`.
+- `TireMeshBuilder` — pneu procedural (diâmetro externo fixo), disco e pinça; cache por parâmetros.
+- `core/render/`: `MaterialLibrary` (materiais compartilhados + fábrica), `CarMaterialSet` (pintura, vidro e luzes de um carro) e os shaders `car_paint`, `carbon`, `glass`, `car_light` (Forward+ e Compatibility).
 - `HandlingModel` — função pura: (stats base + upgrades + ajustes + assistências) → `VehicleParams`. **Toda a "sensação" do carro passa por aqui** e é testada.
 - `Drivetrain` — curva de torque simplificada, câmbio automático/manual, RPM.
 - `VehicleInput` — struct com `throttle`, `brake`, `steer`, `handbrake`, `nitro`, `shift_up/down`. Preenchida por `PlayerDriver` (controle/teclado) **ou** `AIDriver`. O veículo não sabe quem está dirigindo.

@@ -47,8 +47,12 @@ Os logs ficam em `%APPDATA%\S-Senna\logs\s-senna.log` (Windows) ou `~/.local/sha
 (Linux) — ou em `save/logs/` no modo portátil; as 4 execuções anteriores ficam em `s-senna.1.log` … `s-senna.4.log`.
 Saves e configurações: ver [`saves-e-configuracoes.md`](saves-e-configuracoes.md).
 
-Para abrir uma cena específica (por exemplo a tela de teste de perfis), passe o caminho dela:
-`tools\scripts\jogar.bat res://game/sandbox/save_debug.tscn`.
+Para abrir uma cena específica, passe o caminho dela. Cenas de teste:
+
+| Cena | Para quê |
+|---|---|
+| `tools\scripts\jogar.bat res://game/sandbox/showroom_sandbox.tscn` | Showroom: o carro montado, com painel para trocar peças, pintura, rodas e altura |
+| `tools\scripts\jogar.bat res://game/sandbox/save_debug.tscn` | Perfis: criar, carregar, salvar ao fechar |
 
 ## 3. Conferir antes de enviar
 
@@ -89,7 +93,14 @@ CAPTURE_FRAMES=120 tools/scripts/screenshot.sh <cena> <saida.png>   # espera mai
 ```
 
 A cena é aberta por `godot/core/debug/capture.tscn`, que espera alguns quadros, salva o PNG e fecha.
-Sempre no modo **Compatibility** (OpenGL), o único que funciona sem placa de vídeo.
+Por padrão no modo **Compatibility** (OpenGL), o único que funciona sem placa de vídeo; numa máquina com GPU,
+`RENDERING_METHOD=forward_plus` captura no modo normal. Argumentos para a cena vão depois de `--`, e a captura
+**falha** se algum shader ou script der erro.
+
+```bash
+tools/scripts/showroom_captures.sh build/screenshots/showroom      # 8 acabamentos de pintura + faróis
+tools/scripts/screenshot.sh res://game/sandbox/showroom_sandbox.tscn perolado.png -- --showroom-finish=pearl --showroom-no-ui
+```
 
 - **Com tela** (Windows, Linux desktop): uma janela abre por um instante.
 - **Sem tela** (CI, nuvem): o script usa `xvfb-run` com renderização por software (Mesa).

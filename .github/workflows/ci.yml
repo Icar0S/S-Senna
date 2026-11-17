@@ -127,6 +127,8 @@ jobs:
         run: |
           tools/scripts/screenshot.sh res://game/main_menu/main_menu.tscn build/screenshots/main_menu.png
           tools/scripts/screenshot.sh res://studio/studio_main.tscn build/screenshots/studio_main.png
+      - name: Capturar o showroom com cada acabamento (shaders no modo Compatibility)
+        run: tools/scripts/showroom_captures.sh build/screenshots/showroom
       - name: Guardar capturas
         if: always()
         uses: actions/upload-artifact@v7
