@@ -101,12 +101,16 @@ do Blender. Tudo que o jogo precisa fica dentro de `godot/`.
 ### Presets de exportação
 | Preset | Plataforma | Feature customizada | Inclui | Exclui |
 |---|---|---|---|---|
-| Jogo - Windows | Windows x86_64 | — | `*.json` (filtro de inclusão) | `studio/*`, `tests/*`, `addons/gdUnit4/*` |
+| Jogo - Windows | Windows x86_64 | — | `*.json` (filtro de inclusão) | `studio/*`, `tests/*`, `reports/*`, `addons/gdUnit4/*` |
 | Jogo - Linux | Linux x86_64 | — | `*.json` | idem |
-| Studio - Windows | Windows x86_64 | `studio` | `*.json` | `tests/*`, `addons/gdUnit4/*` |
+| Studio - Windows | Windows x86_64 | `studio` | `*.json` | `tests/*`, `reports/*`, `addons/gdUnit4/*` |
 | Studio - Linux | Linux x86_64 | `studio` | `*.json` | idem |
 
 > ⚠️ **Armadilha**: arquivos que não são "recursos" do Godot (como `.json`) **não entram na exportação** sem o filtro de inclusão `*.json`. Testar isso na Etapa 00.
+>
+> `tools/ci/export.sh` exporta e confere isso: roda cada build com `-- --self-check` e a cena de boot responde com uma
+> linha `SELF_CHECK {...}` dizendo se o JSON de conteúdo está na build e se `studio/` e `tests/` ficaram de fora.
+> (`reports/` é a pasta de relatórios do gdUnit4, fora do Git.)
 
 ---
 
@@ -137,7 +141,8 @@ game/   ──►  core/, ui/, content/
 studio/ ──►  core/, ui/, content/   (e pode instanciar cenas de game/sandbox para test drive)
 tests/  ──►  qualquer coisa
 ```
-- Script `tools/ci/check_architecture.sh`: falha se algum arquivo em `godot/core/` contiver `res://game/` ou `res://studio/` ou usar `GameSession`.
+- Script `tools/ci/check_architecture.sh`: falha se algum arquivo em `godot/core/` contiver `res://game/` ou `res://studio/` ou usar `GameSession`;
+  se `godot/game/` contiver `res://studio/`; ou se `godot/studio/` referenciar `res://game/` fora de `res://game/sandbox/`.
 
 ---
 
@@ -276,4 +281,5 @@ mudança relevante (compra, sair da garagem, fim de corrida)
 | Visual (para o agente) | `tools/scripts/screenshot.sh` | captura de showroom, garagem, tela dividida |
 | Manual (dono) | checklist no PR | sensação de direção, beleza, diversão |
 
-Comando único: `tools/ci/test.sh` (roda gdUnit4 headless). O CI roda: `lint.sh`, `test.sh`, `validate_content.sh`, `check_architecture.sh`.
+Comando único: `tools/ci/test.sh` (roda gdUnit4 headless). O CI roda: `lint.sh`, `test.sh`, `validate_content.sh`, `check_architecture.sh`,
+`export.sh linux` (exporta Jogo e Studio e confere o conteúdo das builds) e `screenshot.sh` (telas de título, via Xvfb).

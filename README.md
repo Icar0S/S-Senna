@@ -4,7 +4,9 @@
 com o que faltava nos clássicos: **tela dividida para dois jogadores com dois controles** e um jeito fácil de
 **colocar seus próprios carros no jogo**.
 
-> 🚧 **Status: em planejamento.** Ainda não existe versão jogável. O plano completo está em [`docs/plano/`](docs/plano/README.md).
+> 🚧 **Status: em desenvolvimento (fundação pronta).** Ainda não existe versão jogável: por enquanto o projeto abre
+> uma tela de título. O plano completo está em [`docs/plano/`](docs/plano/README.md) e o andamento em
+> [`docs/plano/PROGRESSO.md`](docs/plano/PROGRESSO.md).
 
 ---
 
@@ -33,7 +35,11 @@ PC mais fraco? Use o atalho **"S-Senna (modo leve)"** que vem no zip.
    git clone https://github.com/Icar0S/S-Senna.git
    ```
 4. Rode `tools/scripts/jogar.bat` (Windows) ou `tools/scripts/jogar.sh` (Linux) — ou abra `godot/project.godot` no Godot e aperte **F5**.
+   Os scripts procuram o Godot na variável de ambiente `GODOT` ou no PATH.
 5. Para abrir o Studio: `tools/scripts/studio.bat` / `studio.sh`.
+
+Mais detalhes (testes, exportação, problemas comuns) em [`docs/guias/ambiente-de-desenvolvimento.md`](docs/guias/ambiente-de-desenvolvimento.md).
+Quer contribuir? Leia o [`CONTRIBUTING.md`](CONTRIBUTING.md): o desenvolvimento acontece na branch `dev`.
 
 ## Coloque seus carros no jogo
 O fluxo será: **Blender** (com o add-on *S-Senna CarKit*) → **S-Senna Studio** → test drive → o carro aparece na Concessionária.
@@ -43,8 +49,8 @@ Veja [`docs/plano/04-padroes-de-arte-e-pipeline-de-carros.md`](docs/plano/04-pad
 [Godot 4](https://godotengine.org) (GDScript) · Jolt Physics · [Blender](https://www.blender.org) · glTF · GitHub Actions
 
 ## Licença
-- Código: MIT (arquivo `LICENSE`, adicionado na Etapa 00)
-- Arte e áudio: ver `LICENSE-ASSETS.md` (Etapa 00)
-- Créditos de terceiros: `CREDITS.md`
+- Código: MIT — [`LICENSE`](LICENSE)
+- Arte e áudio: CC BY-NC-SA 4.0 (padrão provisório) — [`LICENSE-ASSETS.md`](LICENSE-ASSETS.md)
+- Créditos de terceiros: [`CREDITS.md`](CREDITS.md)
 
 Este é um projeto de fã, gratuito e sem fins comerciais. Nomes de carros reais pertencem aos seus fabricantes.

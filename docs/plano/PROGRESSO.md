@@ -1,9 +1,10 @@
 # Progresso
 
-Atualizado pelo agente ao final de cada PR. Marque `[x]` quando a etapa estiver **mesclada** e com os critérios 🎮 aprovados pelo dono.
+Atualizado pelo agente ao final de cada entrega (merge de `dev` na `main`). Marque `[x]` quando a etapa estiver
+**mesclada** e com os critérios 🎮 aprovados pelo dono.
 
 ## Marco A — Primeiro carro
-- [ ] **00** Fundação do repositório e do projeto Godot
+- [ ] **00** Fundação do repositório e do projeto Godot — mesclada na `main`; falta só o 🎮 do dono (rodar `jogar.bat` e `studio.bat`)
 - [ ] **01** Núcleo de conteúdo
 - [ ] **02** Sistema de save
 - [ ] **03** Montador de carros e shaders base
@@ -36,14 +37,19 @@ Atualizado pelo agente ao final de cada PR. Marque `[x]` quando a etapa estiver 
 
 ## Decisões do dono
 - [ ] D1 Nome final do jogo
-- [ ] D2 Licença dos assets
+- [ ] D2 Licença dos assets — em uso o padrão sugerido (**CC BY-NC-SA 4.0**, ver `LICENSE-ASSETS.md`) até o dono confirmar
 - [ ] D3 Nomes reais vs. fictícios
 - [ ] D4 Cenário da história
 - [ ] D5 Ordem dos carros
 - [ ] D6 Idiomas
 - [ ] D7 itch.io
 
+## Pendências do dono (fora do código)
+- [ ] GitHub: trocar a branch padrão do repositório para `main` (Settings → General → Default branch) e apagar a branch de planejamento antiga.
+- [ ] GitHub: criar labels e milestones com `tools/scripts/setup_github.sh` (precisa do GitHub CLI autenticado).
+
 ## Registro
-| Data | Etapa | PR | Observações |
+| Data | Etapa | Entrega | Observações |
 |---|---|---|---|
 | 2026-11-15 | — | — | Plano criado |
+| 2026-11-16 | 00 | `dev` → `main` | Fundação: projeto Godot 4.7.2, boot Jogo/Studio, `Log`, presets de exportação, gdUnit4 6.2.3, scripts e CI. Fluxo de branches mudou para `dev`/`main`. Desvios do plano anotados no arquivo da etapa. |
