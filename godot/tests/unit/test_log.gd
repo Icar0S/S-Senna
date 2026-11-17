@@ -111,10 +111,12 @@ func test_rotation_keeps_at_most_five_files() -> void:
 func test_autoload_writes_to_user_logs() -> void:
 	var marker: String = "log autoload test %d" % Time.get_ticks_usec()
 	Log.info(marker, "Test")
-	assert_str(Log.LOG_PATH).is_equal("user://logs/s-senna.log")
-	assert_bool(FileAccess.file_exists(Log.LOG_PATH)).is_true()
-	assert_str(FileAccess.get_file_as_string(Log.LOG_PATH)).contains("[INFO] [Test] " + marker)
-	assert_str(Log.get_log_path()).ends_with("logs/s-senna.log")
+	var expected: String = SavePaths.detect_base_dir().path_join("logs/s-senna.log")
+	assert_str(Log.get_log_path()).is_equal(expected)
+	assert_bool(FileAccess.file_exists(Log.get_log_path())).is_true()
+	assert_str(FileAccess.get_file_as_string(Log.get_log_path())).contains(
+		"[INFO] [Test] " + marker
+	)
 
 
 func _read_lines(path: String) -> PackedStringArray:

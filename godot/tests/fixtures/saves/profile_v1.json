@@ -1,0 +1,203 @@
+{
+  "schema": "profile",
+  "schema_version": 1,
+  "game_version": "0.0.1",
+  "saved_at": "2026-11-17T12:00:00Z",
+  "checksum": "sha256:22451f1e7648543e025931cee44429c606f4602eede3de991ec07ffb360724e3",
+  "data": {
+    "profile": {
+      "id": "golden",
+      "name": "Jogadora Ção 🏁",
+      "created_at": "2026-11-17T12:00:00Z",
+      "sandbox": false,
+      "avatar": 3
+    },
+    "wallet": {
+      "money": 12000,
+      "reputation": 340
+    },
+    "garage": {
+      "selected": "c00000",
+      "cars": [
+        {
+          "instance_id": "c00000",
+          "car_id": "car:base/prototipo",
+          "nickname": "Carro nº 0 — Ação 🚗",
+          "parts": {
+            "bumper_front": "part:base/prototipo/bumper_front-kit01",
+            "spoiler": "part:mod_sumido/universal/spoiler/asa_gigante"
+          },
+          "part_finish": {
+            "hood": "carbon",
+            "spoiler": "carbon"
+          },
+          "part_fit": {
+            "spoiler": {
+              "height_m": 0.04
+            }
+          },
+          "wheels": {
+            "front": {
+              "wheel_id": "wheel:base/basica_5",
+              "rim_in": 18,
+              "width_in": 9.0,
+              "offset_mm": 15.0,
+              "camber_deg": -3.0
+            },
+            "rear": {
+              "wheel_id": "wheel:base/disco",
+              "rim_in": 18,
+              "width_in": 10.5,
+              "offset_mm": 20.0,
+              "camber_deg": -4.5
+            },
+            "paint": {
+              "rim": {
+                "finish": "metallic",
+                "color": "#202020",
+                "flake": 0.3,
+                "gloss": 0.9
+              },
+              "rim_accent": {
+                "finish": "chrome",
+                "color": "#FFFFFF",
+                "flake": 0.0,
+                "gloss": 1.0
+              }
+            },
+            "caliper_color": "#FFD000"
+          },
+          "stance": {
+            "ride_height_mm": -35.0
+          },
+          "paint": {
+            "paint_body": {
+              "finish": "pearl",
+              "color": "#F2F2F2",
+              "color2": "#7FD3FF",
+              "flake": 0.3,
+              "gloss": 0.95
+            },
+            "paint_secondary": {
+              "finish": "matte",
+              "color": "#111111",
+              "flake": 0.0,
+              "gloss": 0.1
+            },
+            "trim_black": "body_color"
+          },
+          "vinyls": {
+            "left": [
+              {
+                "vinyl_id": "vinyl:base/tribal/chama_01",
+                "pos": [
+                  0.449999988079071,
+                  0.550000011920929
+                ],
+                "scale": [
+                  1.25,
+                  0.5
+                ],
+                "rot_deg": 12.0,
+                "colors": [
+                  "#FF3B00"
+                ],
+                "flip_h": false
+              }
+            ],
+            "right": "mirror_left",
+            "top": []
+          },
+          "glass": {
+            "tint": "#101418",
+            "darkness": 0.6
+          },
+          "lights": {
+            "headlight_color": "#CFE6FF",
+            "neon": {
+              "enabled": true,
+              "color": "#00E5FF",
+              "mode": "pulsante"
+            }
+          },
+          "plate": {
+            "text": "SNN-0000",
+            "style": "generica_br"
+          },
+          "performance": {
+            "engine": 2,
+            "turbo": 3,
+            "tires": 0
+          },
+          "tuning": {
+            "steering": 0.5,
+            "grip_drift": 0.25,
+            "brake_bias": 0.75,
+            "nitro_style": "curto"
+          },
+          "stats": {
+            "races": 14,
+            "wins": 6,
+            "distance_km": 182.5
+          }
+        }
+      ]
+    },
+    "unlocks": {
+      "parts": [
+        "part:base/universal/spoiler/asa_simples"
+      ],
+      "cars": [],
+      "vinyls": [],
+      "wheels": []
+    },
+    "career": {
+      "chapter": 2,
+      "events_done": {
+        "evt_c1_01": {
+          "best_pos": 1
+        }
+      },
+      "messages_read": [
+        "msg_001"
+      ]
+    },
+    "records": {
+      "track:base/centro#circuito": {
+        "best_lap_ms": 61234,
+        "car_instance": "c00000"
+      }
+    },
+    "my_colors": [
+      "#00E5FF",
+      "#FF3B00"
+    ],
+    "looks": [
+      {
+        "name": "Estilo Neon",
+        "car_id": "car:base/prototipo",
+        "config": {
+          "plate": {
+            "text": "NEON"
+          }
+        }
+      }
+    ],
+    "player_prefs": {
+      "camera": "chase_far",
+      "assists": {
+        "steering": true,
+        "stability": true,
+        "abs": false,
+        "traction": true,
+        "gearbox": "manual"
+      }
+    },
+    "stats": {
+      "races": 40,
+      "wins": 0,
+      "distance_km": 610.25,
+      "money_earned": 0
+    }
+  }
+}
