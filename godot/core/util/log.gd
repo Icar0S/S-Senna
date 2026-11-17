@@ -2,20 +2,23 @@ extends Node
 ## Autoload `Log`: console + file logging with levels.
 ##
 ## Usage: `Log.info("Loaded 12 cars", "ContentDB")`.
-## The file lives in `user://logs/s-senna.log`; the 4 previous runs are kept
-## as `s-senna.1.log` … `s-senna.4.log`. All the logic is in [LogWriter].
+## The file lives in `<saves>/logs/s-senna.log` (the user folder, or `save/` next
+## to the game in portable mode); the 4 previous runs are kept as
+## `s-senna.1.log` … `s-senna.4.log`. All the logic is in [LogWriter].
 
-const LOG_PATH: String = "user://logs/s-senna.log"
+const LOG_FILE: String = "s-senna.log"
 
 var _writer: LogWriter = LogWriter.new()
+var _path: String = ""
 
 
 func _init() -> void:
 	# Opened in _init (not _ready) so that other autoloads can log while starting.
 	_writer.min_level = LogWriter.Level.DEBUG if OS.is_debug_build() else LogWriter.Level.INFO
-	var open_error: Error = _writer.open(LOG_PATH)
+	_path = SavePaths.detect_base_dir().path_join(SavePaths.LOGS_DIR).path_join(LOG_FILE)
+	var open_error: Error = _writer.open(_path)
 	if open_error != OK:
-		push_warning("Log: could not open %s (%s)" % [LOG_PATH, error_string(open_error)])
+		push_warning("Log: could not open %s (%s)" % [_path, error_string(open_error)])
 
 
 func _notification(what: int) -> void:
@@ -49,7 +52,7 @@ func error(message: String, context: String = "") -> void:
 
 ## Absolute OS path of the current log file (useful for "open logs folder").
 func get_log_path() -> String:
-	return ProjectSettings.globalize_path(LOG_PATH)
+	return _path
 
 
 func get_min_level() -> LogWriter.Level:

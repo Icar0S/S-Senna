@@ -7,6 +7,18 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 ## [Não lançado]
 
 ### Adicionado
+- **Etapa 02 — Sistema de save**
+  - Perfis salvos com segurança: gravação atômica, 3 backups automáticos e checksum; se o arquivo principal
+    estragar, o jogo recupera do backup e avisa.
+  - Perfis: criar, carregar, excluir (vai para a lixeira), duplicar, exportar e importar em `.zip`.
+  - Autosave agrupado (vários pedidos em ~1 s viram uma gravação) e salvamento ao fechar o jogo.
+  - Customização completa de cada carro guardada no perfil; peças de mods desativados nunca somem do save.
+  - Saves de uma versão mais nova do jogo abrem só para leitura e nunca são sobrescritos.
+  - Migração de saves entre versões (mecanismo + modelo testado com um save real).
+  - Configurações (`settings.json`) e controles (`input.json`), com valores padrão na primeira execução.
+  - **Modo portátil**: um `portable.txt` ao lado do executável guarda tudo em `save/` na pasta do jogo.
+  - Traduções pt-BR e inglês (`godot/ui/i18n/strings.csv`).
+  - Tela de teste de perfis: `res://game/sandbox/save_debug.tscn`.
 - **Etapa 01 — Núcleo de conteúdo**
   - `ContentDB` (autoload) e `ContentLibrary`: descobrem pacotes (oficiais, mods habilitados e `--content-dir`),
     ordenam por dependências e prioridade, aplicam aliases e respondem consultas (`get_car`, `list_parts_for`…).
@@ -31,5 +43,7 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
   - Guia [`docs/guias/ambiente-de-desenvolvimento.md`](docs/guias/ambiente-de-desenvolvimento.md).
 
 ### Alterado
+- Os logs e a pasta de mods passaram a ficar na pasta de saves (que muda no modo portátil).
+- Os mods ligados são lidos do `settings.json` (`mods.enabled`).
 - Fluxo de branches: o desenvolvimento acontece em `dev` e vai para `main` ao concluir cada etapa
   (antes: um branch por etapa).

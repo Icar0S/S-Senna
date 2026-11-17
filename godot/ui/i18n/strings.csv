@@ -1,0 +1,20 @@
+keys,pt_BR,en
+SAVE_DEBUG_TITLE,Perfis (tela de teste),Profiles (test screen)
+SAVE_DEBUG_FOLDER,Pasta de saves: %s,Save folder: %s
+SAVE_DEBUG_NAME_HINT,Nome do novo perfil,New profile name
+SAVE_DEBUG_CREATE,Criar perfil,Create profile
+SAVE_DEBUG_CREATE_SANDBOX,Criar (Modo Colecionador),Create (Collector Mode)
+SAVE_DEBUG_LOAD,Carregar,Load
+SAVE_DEBUG_DUPLICATE,Duplicar,Duplicate
+SAVE_DEBUG_DELETE,Excluir (vai para a lixeira),Delete (moves to trash)
+SAVE_DEBUG_ADD_SAVE,+1000 e salvar (autosave),+1000 and save (autosave)
+SAVE_DEBUG_ADD_LATER,+1000 sem salvar (salva ao fechar),+1000 without saving (saved on close)
+SAVE_DEBUG_NONE,Nenhum perfil carregado,No profile loaded
+SAVE_DEBUG_LOADED,"%s — dinheiro: %d — carros: %d","%s — money: %d — cars: %d"
+SAVE_DEBUG_SANDBOX,Modo Colecionador,Collector Mode
+SAVE_DEBUG_SAVED,Salvo às %s,Saved at %s
+SAVE_DEBUG_PENDING,Alterações pendentes (serão salvas ao fechar),Pending changes (saved on close)
+SAVE_DEBUG_FAILED,Falha ao salvar: %s,Save failed: %s
+SAVE_DEBUG_RECOVERED,Perfil recuperado do backup %s,Profile recovered from backup %s
+SAVE_DEBUG_PROFILE_ITEM,"%s (%s) — %d carros","%s (%s) — %d cars"
+SAVE_DEBUG_DEFAULT_NAME,Jogador,Player

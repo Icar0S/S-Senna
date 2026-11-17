@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — save de perfil (profile.json)",
+  "description": "Doc 03 §13 e §14. Os campos de 'data' aceitam campos extras: saves de versões futuras não podem ser recusados por isso (o jogo os preserva).",
+  "type": "object",
+  "required": ["schema", "schema_version", "game_version", "saved_at", "checksum", "data"],
+  "additionalProperties": false,
+  "$defs": {
+    "id_list": { "type": "array", "items": { "type": "string" } },
+    "paint_or_mode": {
+      "oneOf": [
+        { "$ref": "common.schema.json#/$defs/paint_spec" },
+        { "enum": ["body_color", "stock"] }
+      ]
+    },
+    "wheel_setting": {
+      "type": "object",
+      "properties": {
+        "wheel_id": { "type": "string" },
+        "rim_in": { "type": "integer", "minimum": 10, "maximum": 30 },
+        "width_in": { "type": "number", "minimum": 4, "maximum": 15 },
+        "offset_mm": { "type": "number" },
+        "camber_deg": { "type": "number" }
+      }
+    },
+    "vinyl_side": {
+      "oneOf": [
+        { "enum": ["mirror_left", "mirror_right"] },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["vinyl_id"],
+            "properties": {
+              "vinyl_id": { "type": "string" },
+              "pos": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+              "scale": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+              "rot_deg": { "type": "number" },
+              "colors": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/color" } },
+              "flip_h": { "type": "boolean" }
+            }
+          }
+        }
+      ]
+    },
+    "car_config": {
+      "type": "object",
+      "required": ["instance_id", "car_id"],
+      "properties": {
+        "instance_id": { "type": "string", "minLength": 1 },
+        "car_id": { "type": "string", "minLength": 1 },
+        "nickname": { "type": "string" },
+        "parts": { "type": "object", "additionalProperties": { "type": "string" } },
+        "part_finish": { "type": "object", "additionalProperties": { "type": "string" } },
+        "part_fit": { "type": "object", "additionalProperties": { "type": "object" } },
+        "wheels": {
+          "type": "object",
+          "properties": {
+            "front": { "$ref": "#/$defs/wheel_setting" },
+            "rear": { "$ref": "#/$defs/wheel_setting" },
+            "paint": { "type": "object", "additionalProperties": { "$ref": "#/$defs/paint_or_mode" } },
+            "caliper_color": { "type": "string" }
+          }
+        },
+        "stance": { "type": "object", "properties": { "ride_height_mm": { "type": "number" } } },
+        "paint": { "type": "object", "additionalProperties": { "$ref": "#/$defs/paint_or_mode" } },
+        "vinyls": { "type": "object", "additionalProperties": { "$ref": "#/$defs/vinyl_side" } },
+        "glass": { "type": "object" },
+        "lights": { "type": "object" },
+        "plate": { "type": "object" },
+        "performance": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "tuning": { "type": "object" },
+        "stats": { "type": "object" }
+      }
+    }
+  },
+  "properties": {
+    "schema": { "const": "profile" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "game_version": { "type": "string" },
+    "saved_at": { "type": "string" },
+    "checksum": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "data": {
+      "type": "object",
+      "required": ["profile"],
+      "properties": {
+        "profile": {
+          "type": "object",
+          "required": ["id"],
+          "properties": {
+            "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+            "name": { "type": "string" },
+            "created_at": { "type": "string" },
+            "sandbox": { "type": "boolean" },
+            "avatar": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "wallet": {
+          "type": "object",
+          "properties": {
+            "money": { "type": "integer", "minimum": 0 },
+            "reputation": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "garage": {
+          "type": "object",
+          "properties": {
+            "selected": { "type": "string" },
+            "cars": { "type": "array", "items": { "$ref": "#/$defs/car_config" } }
+          }
+        },
+        "unlocks": {
+          "type": "object",
+          "properties": {
+            "parts": { "$ref": "#/$defs/id_list" },
+            "cars": { "$ref": "#/$defs/id_list" },
+            "vinyls": { "$ref": "#/$defs/id_list" },
+            "wheels": { "$ref": "#/$defs/id_list" }
+          }
+        },
+        "career": { "type": "object" },
+        "records": { "type": "object" },
+        "my_colors": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/color" } },
+        "looks": { "type": "array", "items": { "type": "object" } },
+        "player_prefs": { "type": "object" },
+        "stats": { "type": "object" }
+      }
+    }
+  }
+}

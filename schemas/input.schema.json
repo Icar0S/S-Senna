@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — controles (input.json)",
+  "description": "Doc 03 §15. Usado pelo InputRouter (Etapa 07).",
+  "type": "object",
+  "required": ["schema", "schema_version"],
+  "properties": {
+    "schema": { "const": "input" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "known_devices": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "last_player": { "type": "integer", "minimum": 0 },
+          "name": { "type": "string" }
+        }
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

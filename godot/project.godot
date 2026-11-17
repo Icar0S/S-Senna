@@ -20,6 +20,8 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 [autoload]
 
 Log="*res://core/util/log.gd"
+Settings="*res://core/save/settings.gd"
+SaveManager="*res://core/save/save_manager.gd"
 ContentDB="*res://core/content/content_db.gd"
 
 [debug]
@@ -41,6 +43,7 @@ enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 
 [internationalization]
 
+locale/translations=PackedStringArray("res://ui/i18n/strings.pt_BR.translation", "res://ui/i18n/strings.en.translation")
 locale/fallback="pt_BR"
 
 [physics]
