@@ -1,0 +1,6 @@
+# Configuração do gdlint (gdtoolkit). Só o que difere do padrão.
+excluded_directories: !!set
+  .git: null
+  .godot: null
+  addons: null
+max-line-length: 100

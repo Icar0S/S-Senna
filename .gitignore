@@ -1,0 +1,25 @@
+# Godot: cache de importação (NUNCA commitar). Os arquivos *.import e *.uid DEVEM ser commitados.
+.godot/
+
+# Builds exportadas
+/build/
+
+# Relatórios do gdUnit4
+/godot/reports/
+
+# Credenciais de exportação (assinatura etc.)
+export_credentials.cfg
+
+# Temporários
+*.tmp
+*.blend1
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

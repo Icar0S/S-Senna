@@ -1,0 +1,12 @@
+{
+  "schema": "pack",
+  "schema_version": 1,
+  "id": "base",
+  "name": "S-Senna Base",
+  "version": "0.1.0",
+  "authors": ["Equipe S-Senna"],
+  "license": "Ver LICENSE-ASSETS.md",
+  "depends": [],
+  "priority": 0,
+  "aliases": {}
+}

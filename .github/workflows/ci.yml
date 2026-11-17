@@ -1,0 +1,130 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+# Todos os jobs fazem checkout SEM Git LFS (lfs: false) para não gastar a cota de banda:
+# o que os testes precisam fica fora do LFS (godot/tests/fixtures e godot/addons).
+
+jobs:
+  lint:
+    name: Lint (gdformat + gdlint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/ci/requirements.txt
+      - name: Instalar gdtoolkit
+        run: pip install -r tools/ci/requirements.txt
+      - name: Lint
+        run: tools/ci/lint.sh
+
+  architecture:
+    name: Regras de arquitetura
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: false
+      - name: Conferir dependências entre core/, game/ e studio/
+        run: tools/ci/check_architecture.sh
+
+  content:
+    name: Validação de conteúdo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: false
+      - name: Validar JSON
+        run: tools/ci/validate_content.sh
+
+  test:
+    name: Testes (gdUnit4)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: false
+      - name: Cache do Godot
+        uses: actions/cache@v6
+        with:
+          path: ~/.local/share/godot/bin
+          key: godot-bin-${{ runner.os }}-${{ hashFiles('.godot-version') }}
+      - name: Instalar Godot
+        run: tools/ci/install_godot.sh
+      - name: Testes
+        run: tools/ci/test.sh
+      - name: Guardar relatório de testes
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: relatorio-de-testes
+          path: godot/reports/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  export:
+    name: Exportação (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: false
+      - name: Cache do Godot + export templates
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.local/share/godot/bin
+            ~/.local/share/godot/export_templates
+          key: godot-export-${{ runner.os }}-${{ hashFiles('.godot-version') }}
+      - name: Instalar Godot e export templates
+        run: tools/ci/install_godot.sh --templates
+      - name: Exportar Jogo e Studio e conferir o conteúdo das builds
+        run: tools/ci/export.sh linux
+
+  screenshot:
+    name: Captura de tela
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: false
+      - name: Instalar Xvfb e Mesa (renderização por software)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            xvfb xauth libgl1 libgl1-mesa-dri libxcursor1 libxinerama1 libxi6 libxrandr2 libxkbcommon0
+      - name: Cache do Godot
+        uses: actions/cache@v6
+        with:
+          path: ~/.local/share/godot/bin
+          key: godot-bin-${{ runner.os }}-${{ hashFiles('.godot-version') }}
+      - name: Instalar Godot
+        run: tools/ci/install_godot.sh
+      - name: Capturar as telas de título
+        run: |
+          tools/scripts/screenshot.sh res://game/main_menu/main_menu.tscn build/screenshots/main_menu.png
+          tools/scripts/screenshot.sh res://studio/studio_main.tscn build/screenshots/studio_main.png
+      - name: Guardar capturas
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: capturas-de-tela
+          path: build/screenshots/
+          if-no-files-found: ignore
+          retention-days: 14

@@ -1,0 +1,6 @@
+# Configuração do gdformat (gdtoolkit).
+excluded_directories: !!set
+  .git: null
+  .godot: null
+  addons: null
+line_length: 100

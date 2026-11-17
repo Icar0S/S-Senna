@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Plano do projeto
+    url: https://github.com/Icar0S/S-Senna/blob/main/docs/plano/README.md
+    about: Roteiro de etapas, escopo e decisões do S-Senna.
