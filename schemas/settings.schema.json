@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — configurações (settings.json)",
+  "description": "Doc 03 §15. Valores fora da faixa são corrigidos pelo jogo; campos extras são preservados.",
+  "type": "object",
+  "required": ["schema", "schema_version"],
+  "properties": {
+    "schema": { "const": "settings" },
+    "schema_version": { "$ref": "common.schema.json#/$defs/schema_version" },
+    "video": {
+      "type": "object",
+      "properties": {
+        "window_mode": { "enum": ["windowed", "fullscreen", "exclusive_fullscreen"] },
+        "resolution": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 2, "maxItems": 2 },
+        "vsync": { "type": "boolean" },
+        "fps_limit": { "type": "integer", "minimum": 0 },
+        "quality": { "enum": ["baixo", "medio", "alto", "ultra"] },
+        "render_scale": { "type": "number", "minimum": 0.5, "maximum": 2 },
+        "upscaler": { "enum": ["off", "fsr1", "fsr2"] },
+        "split_layout": { "enum": ["horizontal", "vertical"] },
+        "fov": { "type": "number", "minimum": 50, "maximum": 110 }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "properties": {
+        "master": { "type": "number", "minimum": 0, "maximum": 1 },
+        "music": { "type": "number", "minimum": 0, "maximum": 1 },
+        "sfx": { "type": "number", "minimum": 0, "maximum": 1 },
+        "engine": { "type": "number", "minimum": 0, "maximum": 1 },
+        "ui": { "type": "number", "minimum": 0, "maximum": 1 },
+        "music_folder": { "type": "string" }
+      }
+    },
+    "gameplay": {
+      "type": "object",
+      "properties": {
+        "units": { "enum": ["kmh", "mph"] },
+        "language": { "enum": ["pt_BR", "en"] },
+        "hud_scale": { "type": "number", "minimum": 0.5, "maximum": 2 },
+        "vibration": { "type": "boolean" }
+      }
+    },
+    "mods": {
+      "type": "object",
+      "properties": { "enabled": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/pack_name" } } }
+    }
+  }
+}
