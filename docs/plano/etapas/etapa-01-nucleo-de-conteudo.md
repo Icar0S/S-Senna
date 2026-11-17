@@ -46,7 +46,7 @@ Criar a camada que transforma arquivos de conteúdo em objetos tipados e confiá
 - [x] `ConventionScanner` encontra exatamente as peças/soquetes/rodas da fixture e bate com o `car.json` (fixture e protótipo).
 - [x] Varredura de 200 carros falsos em < 300 ms (`tests/integration/test_content_performance.gd`; medido: ~150 ms no Windows, ~80 ms no Linux).
 - [x] Build exportada lista e carrega o pacote base (self-check: `content_errors: 0` e `probe_car_model: true`, conferido em Windows e Linux).
-- [ ] CI valida JSON Schemas (job `content` com `check-jsonschema`) — conferir no push em `dev`.
+- [x] CI valida JSON Schemas (job `content` com `check-jsonschema`).
 
 ## Armadilhas
 - Em builds exportadas, os arquivos importados aparecem como `.import`/`.remap` na listagem de pastas — por isso o índice é baseado nos `.json`.
