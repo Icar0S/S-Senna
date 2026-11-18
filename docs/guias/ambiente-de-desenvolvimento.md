@@ -116,12 +116,23 @@ tools/scripts/screenshot.sh res://game/sandbox/showroom_sandbox.tscn perolado.pn
   (`mesa-vulkan-drivers` é opcional; só seria usado para testar o Forward+ por software.)
 
 ## 6. Conteúdo gerado por script
-Os modelos de teste e os placeholders do pacote `base` (Protótipo S-Senna, aros, aerofólio) são gerados por código:
+Os modelos de teste e os placeholders do pacote `base` são gerados por código:
 ```bash
-tools/fixtures/make_test_car.sh
+tools/fixtures/make_test_car.sh        # carro de teste das fixtures, aros e aerofólio (Godot)
+tools/blender/make_prototipo_v2.sh     # Protótipo S-Senna, feito pelo add-on do Blender (precisa do Blender 5.2)
 ```
-O script reescreve os `.glb` e os `car.json` correspondentes e reimporta o projeto. O resultado é determinístico
+Os scripts reescrevem os `.glb` e os `car.json` correspondentes e reimportam o projeto. O resultado é determinístico
 (rodar duas vezes gera arquivos idênticos). Mais detalhes em [`pacotes-de-conteudo.md`](pacotes-de-conteudo.md).
+
+### Blender e o add-on
+O Blender só é necessário para mexer no add-on S-Senna CarKit ou regerar o protótipo. Os scripts acham o Blender
+pela variável `BLENDER` ou pelo PATH (`blender`); a versão testada fica em `.blender-version`. No Linux/CI,
+`tools/ci/install_blender.sh` instala essa versão (confere o SHA-256). Guia: [`instalar-addon-blender.md`](instalar-addon-blender.md).
+```bash
+tools/blender/run_tests.sh             # testes do add-on (puros + dentro do Blender, sem janela)
+tools/blender/build_extension.sh       # gera build/senna_carkit-<versão>.zip
+```
+O `tools/ci/lint.sh` também confere o Python de `tools/` com o [ruff](https://docs.astral.sh/ruff/) (regras em `ruff.toml`).
 
 ## 7. GitHub (labels e milestones)
 `tools/scripts/setup_github.sh` cria as labels (`etapa-NN`, `conteudo`, `bug`, `ideia`, `playtest`) e as milestones

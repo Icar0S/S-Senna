@@ -7,6 +7,19 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 ## [Não lançado]
 
 ### Adicionado
+- **Etapa 05 — Add-on do Blender (S-Senna CarKit)**
+  - Add-on para o Blender 5.2: painel "S-Senna" (tecla N) que cria o carro com as medidas reais e as imagens de
+    referência, separa peças, cria variantes de kit, aplica os materiais do jogo, cria e espelha soquetes, detecta
+    as rodas e normaliza o aro original.
+  - Validador com lista de problemas (vermelho bloqueia, amarelo avisa) e botão para selecionar cada objeto:
+    nomes, escala, frente do carro, rodas no chão e simétricas, medidas (±2%), materiais, orçamento de triângulos,
+    soquetes recomendados.
+  - Exportação para o jogo trabalhando numa cópia (o arquivo do Blender não muda): `model.glb` +
+    `carkit_manifest.json`; também para peças universais e aros.
+  - `.zip` instalável (`tools/blender/build_extension.sh`) e guias de instalação e de como adicionar um carro.
+  - **Protótipo S-Senna v2**, feito de ponta a ponta pelo add-on: carroceria com curvas, arcos de roda redondos,
+    retrovisores, interior, grade e aro de 5 raios.
+  - `tools/blender/update_car_json.py` atualiza o `car.json` a partir do manifesto.
 - **Etapa 04 — Física, câmera e campo de testes**
   - Dá para **dirigir**: física arcade com suspensão, aderência por roda, tração dianteira/traseira/integral,
     câmbio automático ou manual, ré, freio de mão para drift, nitro e downforce.

@@ -123,7 +123,7 @@ miniatura da estante. Na Concessionária, o jogador pode comprar o carro já com
 
 ## 4. Passo a passo de um carro (do Blender até a Concessionária)
 
-> Este fluxo vira o guia `docs/guias/adicionar-carro.md` na Etapa 05/06, com capturas de tela.
+> Os passos 3–11 estão detalhados no guia [`docs/guias/adicionar-carro.md`](../guias/adicionar-carro.md) (Etapa 05); os passos 12–14 entram nele na Etapa 06.
 
 1. **Abrir uma issue "Novo carro"** (formulário do GitHub): carro real, miniatura, dimensões, referências.
 2. **Juntar referências**: blueprints, fotos reais, fotos da miniatura.

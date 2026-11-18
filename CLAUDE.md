@@ -34,11 +34,14 @@ tools/ci/validate_content.sh        # JSON Schemas do conteúdo
 tools/ci/check_architecture.sh      # regras de dependência
 tools/ci/export.sh [linux|windows|all]   # exporta Jogo e Studio e confere o conteúdo das builds
 tools/scripts/screenshot.sh <cena.tscn> <saida.png>   # captura para conferência visual
-tools/fixtures/make_test_car.sh     # regera os modelos procedurais (fixture + protótipo, aros, aerofólio)
+tools/fixtures/make_test_car.sh     # regera os modelos procedurais (fixture, aros, aerofólio)
+tools/blender/make_prototipo_v2.sh  # regera o protótipo do pacote base pelo add-on do Blender
+tools/blender/run_tests.sh          # testes do add-on do Blender (--pure: sem Blender)
+tools/blender/build_extension.sh    # gera o .zip instalável do add-on
 godot --path godot                  # rodar o jogo
 godot --path godot -- --studio      # rodar o Studio
 ```
-Os scripts acham o Godot pela variável `GODOT` (ou `GODOT_BIN`) ou pelo PATH. Detalhes em `docs/guias/ambiente-de-desenvolvimento.md`.
+Os scripts acham o Godot pela variável `GODOT` (ou `GODOT_BIN`) ou pelo PATH, e o Blender pela variável `BLENDER` ou pelo PATH. Detalhes em `docs/guias/ambiente-de-desenvolvimento.md`.
 
 ## Antes de mesclar `dev` na `main`
 - Lint, testes, validação e arquitetura verdes (localmente e no CI do push em `dev`).
