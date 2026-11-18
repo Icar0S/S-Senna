@@ -7,6 +7,20 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 ## [Não lançado]
 
 ### Adicionado
+- **Etapa 04 — Física, câmera e campo de testes**
+  - Dá para **dirigir**: física arcade com suspensão, aderência por roda, tração dianteira/traseira/integral,
+    câmbio automático ou manual, ré, freio de mão para drift, nitro e downforce.
+  - Assistências: direção progressiva, contraesterço, estabilidade, assistente de drift, ABS, controle de
+    tração e endireitar o carro sozinho; botão de reposicionar.
+  - Câmera de perseguição (longe, perto, capô, para-choque), olhar para trás, campo de visão maior com a
+    velocidade e o nitro.
+  - HUD com velocímetro, marcha, RPM e nitro.
+  - Campo Plano com reta de 400 m, slalom, curva inclinada, skidpad, rampas e lombadas
+    (`res://game/sandbox/campo_plano/campo_plano.tscn`).
+  - Telemetria (F1) e painel de ajuste (F2) que salva o "feeling" por carro ou para todos
+    (`handling_global.json`).
+  - Controles por jogador (teclado + controle) com as teclas da tabela do plano.
+  - Som de motor provisório, sintetizado pelo jogo.
 - **Etapa 03 — Montador de carros e shaders**
   - O carro aparece montado: peças de cada slot (inclusive peças universais presas nos soquetes, esticadas à largura
     do carro), pintura, vidros, faróis e lanternas acendendo.

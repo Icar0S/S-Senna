@@ -450,6 +450,30 @@ Definido na Etapa 01 (usado pela `Economy` na Etapa 09 e pelas recompensas nas E
 
 ---
 
+## 12.2 Constantes de direção — `handling_global.json`
+Etapa 04. Constantes globais de "feeling" usadas pelo `HandlingModel`, editáveis ao vivo pelo painel F2.
+Todos os campos são opcionais (padrão do código) e limitados às faixas de `HandlingGlobals.RANGES`
+(o schema `handling_global.schema.json` repete as faixas).
+```json
+{
+  "schema": "handling_global",
+  "schema_version": 1,
+  "grip_min": 1.05, "grip_max": 1.6,          // aderência (mu) para grip 0 e 1 da ficha do carro
+  "peak_slip_deg": 7.0,                        // ângulo de escorregamento de aderência máxima
+  "rear_grip_factor": 1.02, "handbrake_grip_factor": 0.4,
+  "steer_deg_min": 30.0, "steer_deg_max": 38.0, "steer_falloff_kmh": 120.0, "steer_speed": 6.0,
+  "suspension_freq_front": 1.8, "suspension_freq_rear": 1.9, "damping_ratio": 0.45, "antiroll": 0.6,
+  "suspension_travel_m": 0.15, "com_height_m": 0.36,
+  "brake_decel_g_min": 0.85, "brake_decel_g_max": 1.25, "brake_bias_front": 0.62,
+  "stability": 0.6, "drift_assist": 0.6, "countersteer": 0.45, "max_drift_deg": 40.0,
+  "nitro_accel": 4.5, "auto_right_strength": 10.0
+  // ...lista completa em godot/content/packs/base/handling_global.json
+}
+```
+- Quando vários pacotes têm o arquivo, vale o de maior `priority`.
+- `tuning_overrides` do `car.json` (§5) guarda campos de `VehicleParams` (ex.: `"tire_mu": 1.5`) que valem só para
+  aquele carro; o painel F2 os grava.
+
 ## 13. Configuração de um carro do jogador — `CarConfig`
 
 É o que o save guarda para **cada carro da garagem do jogador**.
