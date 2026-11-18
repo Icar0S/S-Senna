@@ -28,3 +28,6 @@ Thumbs.db
 .env
 .env.*
 
+
+# Cópia do conventions.json gerada por tools/blender/build_extension.sh
+tools/blender/senna_carkit/conventions.json

@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   lint:
-    name: Lint (gdformat + gdlint)
+    name: Lint (GDScript + Python) e testes puros do add-on
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -28,10 +28,12 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: tools/ci/requirements.txt
-      - name: Instalar gdtoolkit
+      - name: Instalar gdtoolkit e ruff
         run: pip install -r tools/ci/requirements.txt
       - name: Lint
         run: tools/ci/lint.sh
+      - name: Testes puros do add-on do Blender (sem Blender)
+        run: tools/blender/run_tests.sh --pure
 
   architecture:
     name: Regras de arquitetura

@@ -1,0 +1,13 @@
+# Python do repositório (add-on do Blender e scripts de tools/): ruff check + ruff format.
+line-length = 120
+target-version = "py311"
+extend-exclude = ["godot", "build"]
+
+[lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+# bpy registra propriedades por anotação de classe: "name: bpy.props.X(...)" é o padrão do Blender.
+ignore = ["F722", "F821", "E501"]
+
+[lint.isort]
+known-first-party = ["senna_carkit", "update_car_json", "test_pure"]
+known-third-party = ["bpy", "bmesh", "mathutils"]

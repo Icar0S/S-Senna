@@ -1,0 +1,62 @@
+name: Blender (add-on)
+
+# Job opcional da Etapa 05: só roda quando o add-on, as convenções ou a versão do Blender mudam.
+# Os testes puros do add-on (sem Blender) rodam sempre, no job de lint do ci.yml.
+on:
+  push:
+    branches: [main, dev]
+    paths:
+      - "tools/blender/**"
+      - "godot/core/content/conventions.json"
+      - ".blender-version"
+      - "tools/ci/install_blender.sh"
+      - "tools/ci/_common.sh"
+      - ".github/workflows/blender.yml"
+  pull_request:
+    paths:
+      - "tools/blender/**"
+      - "godot/core/content/conventions.json"
+      - ".blender-version"
+      - "tools/ci/install_blender.sh"
+      - "tools/ci/_common.sh"
+      - ".github/workflows/blender.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: blender-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  addon:
+    name: Add-on no Blender (headless)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: false
+      - name: Bibliotecas do sistema que o Blender carrega (mesmo em segundo plano)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libx11-6 libxrender1 libxfixes3 libxi6 libsm6 libice6 libxext6 libgl1 libegl1 \
+            libxkbcommon0 libxxf86vm1
+      - name: Cache do Blender
+        uses: actions/cache@v6
+        with:
+          path: ~/.local/share/blender
+          key: blender-${{ runner.os }}-${{ hashFiles('.blender-version') }}
+      - name: Instalar Blender
+        run: tools/ci/install_blender.sh
+      - name: Testes (puros + no Blender)
+        run: tools/blender/run_tests.sh
+      - name: Empacotar e instalar o .zip num perfil temporário
+        run: tools/blender/test_install.sh
+      - name: Guardar o .zip do add-on
+        uses: actions/upload-artifact@v7
+        with:
+          name: senna_carkit
+          path: build/senna_carkit-*.zip
+          retention-days: 14

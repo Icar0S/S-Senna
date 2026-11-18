@@ -74,3 +74,48 @@ import_project() {
     die "A importação do projeto encontrou erros de script."
   fi
 }
+
+BLENDER_VERSION_WANTED="$(tr -d '[:space:]' < "$REPO_ROOT/.blender-version")"
+
+# Procura o Blender e grava o caminho em BLENDER_BIN.
+# Ordem: variável BLENDER, `blender` no PATH, ~/.local/bin/blender.
+find_blender() {
+  local candidate="${BLENDER:-}"
+  if [ -n "$candidate" ]; then
+    if [ ! -f "$candidate" ] && ! command -v "$candidate" > /dev/null 2>&1; then
+      die "A variável BLENDER aponta para '$candidate', que não existe."
+    fi
+  elif command -v blender > /dev/null 2>&1; then
+    candidate="blender"
+  elif [ -x "$HOME/.local/bin/blender" ]; then
+    candidate="$HOME/.local/bin/blender"
+  else
+    printf 'ERRO: Blender não encontrado.\n\n' >&2
+    printf 'Instale o Blender %s LTS: https://www.blender.org/download/lts/\n' "$BLENDER_VERSION_WANTED" >&2
+    printf 'Depois coloque o executável no PATH com o nome "blender" ou defina a variável BLENDER\n' >&2
+    printf 'com o caminho completo. No Linux/CI: tools/ci/install_blender.sh\n' >&2
+    exit 1
+  fi
+  BLENDER_BIN="$candidate"
+
+  local version
+  version="$("$BLENDER_BIN" --version 2> /dev/null | tr -d '\r' | head -n 1)"
+  case "$version" in
+    "Blender ${BLENDER_VERSION_WANTED%.*}"*) ;;
+    "") warn "Não consegui ler a versão do Blender em '$BLENDER_BIN'." ;;
+    *) warn "$version encontrado, mas o add-on é testado no Blender $BLENDER_VERSION_WANTED (.blender-version)." ;;
+  esac
+}
+
+# Python 3.10+ para os scripts e os testes puros do add-on (grava em PYTHON_BIN).
+find_python() {
+  local candidate
+  for candidate in python3 python; do
+    if command -v "$candidate" > /dev/null 2>&1 \
+      && "$candidate" -c 'import sys; sys.exit(sys.version_info < (3, 10))' 2> /dev/null; then
+      PYTHON_BIN="$candidate"
+      return 0
+    fi
+  done
+  die "Python 3.10+ não encontrado."
+}

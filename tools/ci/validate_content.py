@@ -73,16 +73,14 @@ def run_check_jsonschema(args: list[str]) -> int:
 
 
 def has_check_jsonschema() -> bool:
-    result = subprocess.run(
-        [sys.executable, "-c", "import check_jsonschema"], check=False, capture_output=True
-    )
+    result = subprocess.run([sys.executable, "-c", "import check_jsonschema"], check=False, capture_output=True)
     return result.returncode == 0
 
 
 def main(argv: list[str]) -> int:
     # Our lines and check-jsonschema's (a subprocess) must come out in order.
     sys.stdout.reconfigure(line_buffering=True)
-    root =Path(argv[1]).resolve() if len(argv) > 1 else Path(__file__).resolve().parents[2]
+    root = Path(argv[1]).resolve() if len(argv) > 1 else Path(__file__).resolve().parents[2]
     files = find_json_files(root)
     errors = 0
 
@@ -100,13 +98,13 @@ def main(argv: list[str]) -> int:
         schema_name = data.get("schema") if isinstance(data, dict) else None
         if not isinstance(schema_name, str) or not schema_name:
             errors += 1
-            print(f"ERRO: {relative}: falta o campo \"schema\" (doc 03 §1)", file=sys.stderr)
+            print(f'ERRO: {relative}: falta o campo "schema" (doc 03 §1)', file=sys.stderr)
             continue
         schema_file = root / SCHEMAS_DIR / f"{schema_name}.schema.json"
         if not schema_file.is_file():
             errors += 1
             print(
-                f"ERRO: {relative}: schema desconhecido \"{schema_name}\" "
+                f'ERRO: {relative}: schema desconhecido "{schema_name}" '
                 f"(não existe {SCHEMAS_DIR}/{schema_name}.schema.json)",
                 file=sys.stderr,
             )
@@ -125,9 +123,7 @@ def main(argv: list[str]) -> int:
 
     # 2. Os próprios schemas.
     schema_files = sorted((root / SCHEMAS_DIR).glob("*.schema.json"))
-    if schema_files and run_check_jsonschema(
-        ["--check-metaschema", *[str(path) for path in schema_files]]
-    ):
+    if schema_files and run_check_jsonschema(["--check-metaschema", *[str(path) for path in schema_files]]):
         errors += 1
 
     # 3. Conteúdo contra os schemas.

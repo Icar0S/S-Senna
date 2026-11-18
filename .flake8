@@ -1,0 +1,5 @@
+# Só para editores que usam o flake8; o CI usa o ruff (ruff.toml).
+[flake8]
+max-line-length = 120
+extend-ignore = E203, F722, F821
+exclude = godot, build, .git

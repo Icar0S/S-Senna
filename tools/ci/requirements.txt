@@ -1,3 +1,4 @@
 # Ferramentas Python usadas pelo CI e pelos scripts de tools/ci (versões fixadas).
 gdtoolkit==4.5.0
 check-jsonschema==0.39.0
+ruff==0.17.5
