@@ -6,7 +6,8 @@
   "required": [
     "schema", "schema_version", "slots", "sockets", "wheels", "materials", "material_prefix_keep",
     "name_separator", "node_prefixes", "fixed_prefixes", "metadata_keys", "metadata_roles",
-    "forbidden_name_suffixes", "part_finishes", "paint_finishes", "budgets"
+    "forbidden_name_suffixes", "part_finishes", "paint_finishes", "budgets", "recommended_sockets",
+    "rim_model", "validation", "material_preview"
   ],
   "additionalProperties": false,
   "$defs": {
@@ -66,6 +67,34 @@
         "part_tris": { "type": "integer", "minimum": 1 },
         "rim_tris": { "type": "integer", "minimum": 1 }
       }
+    },
+    "recommended_sockets": { "$ref": "#/$defs/names" },
+    "rim_model": {
+      "description": "Tamanho em que aros são modelados (o jogo escala para o aro escolhido).",
+      "type": "object",
+      "required": ["diameter_in", "width_in"],
+      "additionalProperties": false,
+      "properties": {
+        "diameter_in": { "type": "number", "minimum": 10, "maximum": 30 },
+        "width_in": { "type": "number", "minimum": 4, "maximum": 15 }
+      }
+    },
+    "validation": {
+      "description": "Tolerâncias do validador do add-on do Blender (Etapa 05).",
+      "type": "object",
+      "required": ["dimension_tolerance_pct", "wheel_symmetry_m", "wheel_ground_m"],
+      "additionalProperties": false,
+      "properties": {
+        "dimension_tolerance_pct": { "type": "number", "minimum": 0 },
+        "wheel_symmetry_m": { "type": "number", "minimum": 0 },
+        "wheel_ground_m": { "type": "number", "minimum": 0 }
+      }
+    },
+    "material_preview": {
+      "description": "Cor de pré-visualização de cada material no Blender (o jogo usa os próprios materiais).",
+      "type": "object",
+      "propertyNames": { "$ref": "common.schema.json#/$defs/token" },
+      "additionalProperties": { "$ref": "common.schema.json#/$defs/color" }
     }
   }
 }

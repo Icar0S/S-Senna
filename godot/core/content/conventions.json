@@ -23,5 +23,15 @@
                               "-navmesh", "-occ", "-occonly", "-noimp", "-loop", "-cycle"],
   "part_finishes": ["paint", "carbon", "black"],
   "paint_finishes": ["solid", "metallic", "pearl", "matte", "satin", "chrome", "candy", "chameleon"],
-  "budgets": { "car_total_tris": 45000, "body_tris": 35000, "part_tris": 4000, "rim_tris": 4000 }
+  "budgets": { "car_total_tris": 45000, "body_tris": 35000, "part_tris": 4000, "rim_tris": 4000 },
+  "recommended_sockets": ["spoiler", "exhaust_L", "exhaust_R", "lip_front", "lip_rear", "plate_front", "plate_rear",
+                          "neon", "light_head_L", "light_head_R", "light_tail_L", "light_tail_R"],
+  "rim_model": { "diameter_in": 18.0, "width_in": 8.0 },
+  "validation": { "dimension_tolerance_pct": 2.0, "wheel_symmetry_m": 0.01, "wheel_ground_m": 0.015 },
+  "material_preview": {
+    "paint_body": "#C8102E", "paint_secondary": "#2B2D31", "trim_black": "#141518", "carbon": "#1E1F22",
+    "chrome": "#E9ECEF", "metal_dark": "#34373C", "glass": "#1C2A36", "glass_light": "#DDE6EE",
+    "light_head": "#F4F7FF", "light_tail": "#E0141C", "light_signal": "#FF9A1F", "rubber": "#0E0E0F",
+    "interior": "#1C1D20", "rim": "#B8BCC2", "rim_accent": "#E8E8E8", "caliper": "#B01010", "plate": "#E8E8E2"
+  }
 }

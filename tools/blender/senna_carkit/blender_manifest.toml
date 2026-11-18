@@ -1,0 +1,20 @@
+schema_version = "1.0.0"
+
+id = "senna_carkit"
+version = "0.1.0"
+name = "S-Senna CarKit"
+tagline = "Prepara, valida e exporta carros para o jogo S-Senna"
+maintainer = "Projeto S-Senna"
+type = "add-on"
+website = "https://github.com/Icar0S/S-Senna"
+tags = ["Import-Export", "Object"]
+
+blender_version_min = "5.2.0"
+
+license = ["SPDX:MIT"]
+
+[permissions]
+files = "Gravar o modelo .glb e o manifesto na pasta escolhida"
+
+[build]
+paths_exclude_pattern = ["__pycache__/", "*.pyc", "tests/"]
