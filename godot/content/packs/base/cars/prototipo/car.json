@@ -9,9 +9,9 @@
   "category": "outro",
   "model": "model.glb",
   "dimensions_mm": {
-    "length": 4330,
+    "length": 4339,
     "width": 1760,
-    "height": 1256,
+    "height": 1267,
     "wheelbase": 2550
   },
   "parts": [
@@ -60,6 +60,10 @@
       "slot": "spoiler",
       "variant": "stock",
       "accepts_universal": true
+    },
+    {
+      "slot": "mirrors",
+      "variant": "stock"
     }
   ],
   "sockets": {
@@ -163,8 +167,8 @@
     "has_miniature": false
   },
   "credits": {
-    "model_author": "S-Senna (gerado por script)",
+    "model_author": "S-Senna (gerado pelo add-on S-Senna CarKit)",
     "license": "CC-BY-NC-SA-4.0",
-    "source": "tools/fixtures/make_test_car.gd"
+    "source": "tools/blender/make_prototipo_v2.py"
   }
 }
