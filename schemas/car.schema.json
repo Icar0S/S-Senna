@@ -152,6 +152,10 @@
         "source": { "type": "string" }
       }
     },
-    "tuning_overrides": { "type": "object" }
+    "tuning_overrides": {
+      "description": "Ajustes do painel F2: campo de VehicleParams -> número.",
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    }
   }
 }

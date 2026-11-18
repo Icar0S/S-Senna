@@ -3,7 +3,7 @@
 JSON Schemas (Draft 2020-12) do conteúdo e dos saves do S-Senna: `car`, `part`, `wheel`, `pack`, `profile`…
 
 Um arquivo por tipo, escolhido pelo campo `"schema"` de cada JSON: `pack`, `car`, `part`, `wheel`, `vinyl_set`,
-`paint_catalog`, `sound_profile`, `track`, `upgrades`, `economy` e `conventions` (conteúdo) e `profile`,
+`paint_catalog`, `sound_profile`, `track`, `upgrades`, `economy`, `handling_global` e `conventions` (conteúdo) e `profile`,
 `settings` e `input` (saves — estes aceitam campos extras, porque o jogo preserva campos de versões futuras). Definições compartilhadas
 (IDs, cores, caminhos relativos, pintura) ficam em `common.schema.json`.
 

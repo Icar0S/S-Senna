@@ -129,6 +129,8 @@ jobs:
           tools/scripts/screenshot.sh res://studio/studio_main.tscn build/screenshots/studio_main.png
       - name: Capturar o showroom com cada acabamento (shaders no modo Compatibility)
         run: tools/scripts/showroom_captures.sh build/screenshots/showroom
+      - name: Capturar o Campo Plano
+        run: CAPTURE_FRAMES=90 tools/scripts/screenshot.sh res://game/sandbox/campo_plano/campo_plano.tscn build/screenshots/campo_plano.png
       - name: Guardar capturas
         if: always()
         uses: actions/upload-artifact@v7
