@@ -47,13 +47,16 @@ Os logs ficam em `%APPDATA%\S-Senna\logs\s-senna.log` (Windows) ou `~/.local/sha
 (Linux) — ou em `save/logs/` no modo portátil; as 4 execuções anteriores ficam em `s-senna.1.log` … `s-senna.4.log`.
 Saves e configurações: ver [`saves-e-configuracoes.md`](saves-e-configuracoes.md).
 
-Para abrir uma cena específica, passe o caminho dela. Cenas de teste:
+O `jogar.bat` sozinho abre a tela de título (provisória). As **cenas de teste** têm atalhos de duplo clique em
+`tools\scripts\` (ou `.sh` no Linux):
 
-| Cena | Para quê |
-|---|---|
-| `tools\scripts\jogar.bat res://game/sandbox/campo_plano/campo_plano.tscn` | Campo Plano: dirigir, telemetria (F1), ajuste da direção (F2) — ver [`campo-de-testes.md`](campo-de-testes.md) |
-| `tools\scripts\jogar.bat res://game/sandbox/showroom_sandbox.tscn` | Showroom: o carro montado, com painel para trocar peças, pintura, rodas e altura |
-| `tools\scripts\jogar.bat res://game/sandbox/save_debug.tscn` | Perfis: criar, carregar, salvar ao fechar |
+| Atalho | Abre | Para quê |
+|---|---|---|
+| `campo.bat` | `res://game/sandbox/campo_plano/campo_plano.tscn` | Campo Plano: dirigir, telemetria (F1), ajuste da direção (F2) — ver [`campo-de-testes.md`](campo-de-testes.md) |
+| `showroom.bat` | `res://game/sandbox/showroom_sandbox.tscn` | Showroom: o carro montado, com painel para trocar peças, pintura, rodas e altura |
+| `perfis.bat` | `res://game/sandbox/save_debug.tscn` | Perfis: criar, carregar, salvar ao fechar |
+
+Qualquer outra cena: `tools\scripts\jogar.bat res://caminho/da/cena.tscn`.
 
 ## 3. Conferir antes de enviar
 

@@ -3,10 +3,8 @@
 O Campo Plano é onde se dirige o carro para sentir e ajustar a física. É também a cena do **test drive** do
 S-Senna Studio (Etapa 06).
 
-```bat
-tools\scripts\jogar.bat res://game/sandbox/campo_plano/campo_plano.tscn
-```
-Outro carro: acrescente `-- --campo-car=car:base/prototipo` (o ID do carro).
+Dê **duplo clique em `tools\scripts\campo.bat`** (Linux: `tools/scripts/campo.sh`).
+Pelo terminal, com outro carro: `tools\scripts\campo.bat -- --campo-car=car:base/prototipo` (o ID do carro).
 
 ## 1. Controles
 

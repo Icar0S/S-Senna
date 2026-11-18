@@ -67,7 +67,7 @@ func get_aabb_car_space() -> AABB
 - [x] Desempenho (tarefa 9): montar um carro em cache ≈ 1–2 ms (meta 50 ms); trocar uma peça ≈ 0,02 ms (meta 5 ms); malhas iguais compartilhadas (testado).
 ### 🎮 Manuais
 - [ ] O dono acha a pintura bonita no showroom (é o primeiro "uau" do projeto) —
-  `tools\scripts\jogar.bat res://game/sandbox/showroom_sandbox.tscn`.
+  duplo clique em `tools\scripts\showroom.bat`.
 
 ## Armadilhas
 - Escala negativa para espelhar rodas: evitar (usar rotação de 180°).
