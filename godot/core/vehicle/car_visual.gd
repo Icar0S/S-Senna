@@ -20,6 +20,9 @@ var issues: PackedStringArray = []
 ## IDs in the config that are not in the loaded content (shown as stock).
 var missing: PackedStringArray = []
 var materials: CarMaterialSet = CarMaterialSet.new()
+## False when a [Vehicle] drives this car: the physics places the wheels and the
+## ride height becomes a suspension setting instead of a visual offset.
+var body_follows_ride_height: bool = true
 
 var _body: Node3D = null
 var _wheels_root: Node3D = null
@@ -122,7 +125,7 @@ func set_wheels(front: CarConfig.WheelSetting, rear: CarConfig.WheelSetting) -> 
 func set_ride_height(mm: float) -> void:
 	if config != null:
 		config.ride_height_mm = mm
-	_body.position = Vector3(0.0, mm * MM, 0.0)
+	_body.position = Vector3(0.0, mm * MM if body_follows_ride_height else 0.0, 0.0)
 
 
 ## Ride height in meters (the physics of Etapa 04 reads this).

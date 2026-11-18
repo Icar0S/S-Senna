@@ -16,6 +16,7 @@ const SOUNDS_DIR: String = "sounds"
 const TRACKS_DIR: String = "tracks"
 const UPGRADES_FILE: String = "upgrades/upgrades.json"
 const ECONOMY_FILE: String = "economy.json"
+const HANDLING_FILE: String = "handling_global.json"
 const PACKS_SUBDIR: String = "packs"
 const MAX_ALIAS_DEPTH: int = 16
 
@@ -37,6 +38,9 @@ var _upgrades: UpgradeTable = null
 var _upgrades_priority: int = -2147483648
 var _economy: EconomyDef = null
 var _economy_priority: int = -2147483648
+var _handling: HandlingGlobals = null
+var _handling_priority: int = -2147483648
+var _handling_file: String = ""
 
 
 ## Clears everything and loads the packs found with [param options].
@@ -181,6 +185,16 @@ func get_economy() -> EconomyDef:
 	return _economy
 
 
+## Global driving constants of the highest-priority pack that has them (defaults if none).
+func get_handling_globals() -> HandlingGlobals:
+	return _handling if _handling != null else HandlingGlobals.new()
+
+
+## File the handling globals came from ("" when using the defaults); the F2 panel saves there.
+func get_handling_globals_file() -> String:
+	return _handling_file
+
+
 ## Number of definitions of each kind (for logs and the self-check).
 func get_counts() -> Dictionary:
 	return {
@@ -215,6 +229,9 @@ func _clear() -> void:
 	_paint_catalog.finishes = Conventions.paint_finishes()
 	_upgrades = null
 	_economy = null
+	_handling = null
+	_handling_file = ""
+	_handling_priority = -2147483648
 	_upgrades_priority = -2147483648
 	_economy_priority = -2147483648
 
@@ -395,6 +412,8 @@ func _load_car(pack: PackDef, car_dir: String) -> void:
 	if data.is_empty():
 		return
 	var car: CarDef = CarDef.from_dict(data, ctx)
+	if car != null:
+		car.source_file = file
 	if car == null:
 		return
 	_check_id_matches_folder(car.id, file, ctx)
@@ -451,6 +470,14 @@ func _load_singletons(pack: PackDef) -> void:
 		if economy != null and pack.priority >= _economy_priority:
 			_economy = economy
 			_economy_priority = pack.priority
+	var handling_file: String = pack.root_dir.path_join(HANDLING_FILE)
+	if FileAccess.file_exists(handling_file):
+		var ctx: LoadContext = _context(handling_file, pack)
+		var handling: HandlingGlobals = _parse(handling_file, ctx, HandlingGlobals.from_dict)
+		if handling != null and pack.priority >= _handling_priority:
+			_handling = handling
+			_handling_file = handling_file
+			_handling_priority = pack.priority
 
 
 ## Registers [param def] under [param id] unless a pack with higher priority

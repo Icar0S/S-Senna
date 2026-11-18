@@ -8,7 +8,7 @@ Atualizado pelo agente ao final de cada entrega (merge de `dev` na `main`). Marq
 - [x] **01** Núcleo de conteúdo
 - [ ] **02** Sistema de save — mesclada na `main`; falta o 🎮 do dono (fechar pelo X salva o perfil)
 - [ ] **03** Montador de carros e shaders base — mesclada na `main`; falta o 🎮 do dono (a pintura no showroom)
-- [ ] **04** Física arcade, câmera e campo de testes — 🎮 sensação de direção aprovada
+- [ ] **04** Física arcade, câmera e campo de testes — mesclada na `main`; falta o 🎮 do dono (sensação de direção, drift, F2)
 
 ## Marco B — Concessionária funcionando
 - [ ] **05** Add-on do Blender
@@ -54,6 +54,7 @@ Atualizado pelo agente ao final de cada entrega (merge de `dev` na `main`). Marq
 | 2026-11-15 | — | — | Plano criado |
 | 2026-11-16 | 00 | `dev` → `main` | Fundação: projeto Godot 4.7.2, boot Jogo/Studio, `Log`, presets de exportação, gdUnit4 6.2.3, scripts e CI. Fluxo de branches mudou para `dev`/`main`. Desvios do plano anotados no arquivo da etapa. |
 | 2026-11-17 | 00 | — | 🎮 `jogar.bat` e `studio.bat` aprovados pelo dono. |
+| 2026-11-17 | 04 | `dev` → `main` | Física arcade (`Vehicle`, `HandlingModel`, `Drivetrain`), `InputRouter` mínimo, câmera de perseguição, HUD por jogador, Campo Plano, telemetria F1 e painel F2 com salvamento, `handling_global.json`, testes de física acelerados (0–100, velocidade máxima, frenagem, slalom, endireitar). |
 | 2026-11-17 | 03 | `dev` → `main` | Montador de carros: `CarAssembler`/`CarVisual`, peças por slot (inclusive universais em soquetes), 8 acabamentos de pintura, carbono, vidro e luzes (Forward+ e Compatibility), pneu procedural, rodas com aro/tala/offset/cambagem, altura, showroom com HDRI e painel de debug, capturas no CI. |
 | 2026-11-17 | 02 | `dev` → `main` | Sistema de save: `SaveManager`/`ProfileStore` (escrita atômica, 3 backups, checksum, recuperação, lixeira, exportar/importar), `CarConfig` completo, `Settings` (aplica vídeo/áudio/idioma), `input.json`, migrações + golden v1, modo portátil, traduções pt_BR/en e tela de teste de perfis. Mods ligados agora vêm do `settings.json`. |
 | 2026-11-17 | 01 | `dev` → `main` | Núcleo de conteúdo: `ContentDB`/`ContentLibrary`, definições tipadas, `ModelLoader`, `ConventionScanner`, JSON Schemas com `check-jsonschema`, gerador do carro de teste e primeiro conteúdo do pacote `base` (protótipo, 2 aros, 1 aerofólio, 12 pinturas, upgrades, economia). Etapa sem itens 🎮. |

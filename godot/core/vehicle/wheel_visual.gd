@@ -23,6 +23,8 @@ var caliper: MeshInstance3D = null
 var rim_holder: Node3D = null
 
 var _rim: Node3D = null
+var _base_position: Vector3 = Vector3.ZERO
+var _camber_rad: float = 0.0
 
 
 func _init(wheel_position: String = "FL", anchor_position: Vector3 = Vector3.ZERO) -> void:
@@ -78,6 +80,16 @@ func apply_setting(setting: CarConfig.WheelSetting, tire_diameter_m: float) -> v
 	rim_holder.scale = Vector3(setting.width_in / MODEL_WIDTH_IN, size_scale, size_scale)
 	rim_holder.rotation = Vector3(0.0, 0.0 if is_left else PI, 0.0)
 	# Positive offset pushes the wheel outward ("poke"); negative tucks it in.
-	position = anchor + Vector3(outward * setting.offset_mm * MM, 0.0, 0.0)
+	_base_position = anchor + Vector3(outward * setting.offset_mm * MM, 0.0, 0.0)
 	# Negative camber leans the top of the wheel toward the car.
-	rotation = Vector3(0.0, 0.0, deg_to_rad(-setting.camber_deg) * outward)
+	_camber_rad = deg_to_rad(-setting.camber_deg) * outward
+	set_dynamics(0.0, 0.0, hub.rotation.x)
+
+
+## Placed by the physics: [param suspension_offset] (m, + = compressed, wheel
+## moves up), [param steer] (rad around the vertical, + = left), [param spin]
+## (rad around the axle).
+func set_dynamics(suspension_offset: float, steer: float, spin: float) -> void:
+	position = _base_position + Vector3(0.0, suspension_offset, 0.0)
+	transform.basis = Basis(Vector3.UP, steer) * Basis(Vector3.BACK, _camber_rad)
+	hub.rotation = Vector3(spin, 0.0, 0.0)

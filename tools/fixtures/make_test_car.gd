@@ -323,9 +323,13 @@ func _make_car(spec: Dictionary) -> void:
 	)
 	var dir: String = spec["dir"]
 	_export_gltf(root, dir.path_join("model.glb"))
-	_write_json(
-		dir.path_join("car.json"), _car_json(spec, parts, socket_json, anchors_json, bounds)
-	)
+	var car_json: Dictionary = _car_json(spec, parts, socket_json, anchors_json, bounds)
+	# Keep what the F2 tuning panel saved for this car.
+	var car_file: String = dir.path_join("car.json")
+	var previous: Variant = JSON.parse_string(FileAccess.get_file_as_string(car_file))
+	if previous is Dictionary and (previous as Dictionary).has("tuning_overrides"):
+		car_json["tuning_overrides"] = previous["tuning_overrides"]
+	_write_json(car_file, car_json)
 	root.free()
 
 

@@ -41,8 +41,10 @@ var unlock: String = "default"
 var garage_distance_m: float = 5.0
 var collection: Collection = Collection.new()
 var credits: Dictionary = {}
-## Physics fine-tuning saved by the F2 panel (Etapa 04); kept as-is.
+## Physics fine-tuning saved by the F2 panel (Etapa 04): VehicleParams field -> number.
 var tuning_overrides: Dictionary = {}
+## The `car.json` this came from (filled by the scanner; the F2 panel saves there).
+var source_file: String = ""
 
 var _part_id_prefix: String = ""
 

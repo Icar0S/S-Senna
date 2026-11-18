@@ -22,6 +22,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 Log="*res://core/util/log.gd"
 Settings="*res://core/save/settings.gd"
 SaveManager="*res://core/save/save_manager.gd"
+InputRouter="*res://core/input/input_router.gd"
 ContentDB="*res://core/content/content_db.gd"
 
 [debug]

@@ -40,3 +40,25 @@ SHOWROOM_SAVED,Salvo no perfil de teste,Saved to the test profile
 SHOWROOM_RELOADED,Recarregado do perfil de teste,Reloaded from the test profile
 SHOWROOM_NOTHING_SAVED,Nada salvo ainda,Nothing saved yet
 SHOWROOM_HELP,Arraste com o mouse para girar · roda do mouse para zoom · analógico direito do controle,Drag with the mouse to orbit · wheel to zoom · right stick
+HUD_KMH,km/h,km/h
+HUD_MPH,mph,mph
+HUD_GEAR_REVERSE,R,R
+HUD_GEAR_NEUTRAL,N,N
+HUD_NITRO,NITRO,NITRO
+HUD_RPM,RPM,RPM
+CAMPO_HELP,"W/S acelerar e frear · A/D direção · Espaço freio de mão · Shift nitro · C câmera · Q olhar para trás · R reposicionar · F1 telemetria · F2 ajustes","W/S throttle and brake · A/D steer · Space handbrake · Shift nitro · C camera · Q look back · R reset · F1 telemetry · F2 tuning"
+TUNING_TITLE,Ajuste da direção (F2),Driving tuning (F2)
+TUNING_CAR,Este carro,This car
+TUNING_GLOBAL,Global (todos os carros),Global (all cars)
+TUNING_SAVE_CAR,Salvar para este carro,Save for this car
+TUNING_SAVE_GLOBAL,Salvar como padrão global,Save as global default
+TUNING_RESET,Desfazer mudanças,Undo changes
+TUNING_SAVED,Salvo em %s,Saved to %s
+TUNING_SAVE_FAILED,Não foi possível salvar: %s,Could not save: %s
+TELEMETRY_TITLE,Telemetria (F1),Telemetry (F1)
+TELEMETRY_MAIN,%.0f km/h · %.0f rpm · marcha %d%s,%.0f km/h · %.0f rpm · gear %d%s
+TELEMETRY_SHIFTING, (trocando), (shifting)
+TELEMETRY_INFO,drift %.1f° · nitro %.0f%% · rodas no chão %d · %d FPS,drift %.1f° · nitro %.0f%% · wheels on ground %d · %d FPS
+TELEMETRY_HEADER,roda    carga N  desliz°  patina  aderência,wheel   load N   slip°   spin   grip use
+TELEMETRY_AIR,  (no ar),  (in the air)
+CAMPO_MARKER,%d m,%d m

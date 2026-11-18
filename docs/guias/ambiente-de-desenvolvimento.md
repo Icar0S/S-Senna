@@ -51,6 +51,7 @@ Para abrir uma cena específica, passe o caminho dela. Cenas de teste:
 
 | Cena | Para quê |
 |---|---|
+| `tools\scripts\jogar.bat res://game/sandbox/campo_plano/campo_plano.tscn` | Campo Plano: dirigir, telemetria (F1), ajuste da direção (F2) — ver [`campo-de-testes.md`](campo-de-testes.md) |
 | `tools\scripts\jogar.bat res://game/sandbox/showroom_sandbox.tscn` | Showroom: o carro montado, com painel para trocar peças, pintura, rodas e altura |
 | `tools\scripts\jogar.bat res://game/sandbox/save_debug.tscn` | Perfis: criar, carregar, salvar ao fechar |
 
