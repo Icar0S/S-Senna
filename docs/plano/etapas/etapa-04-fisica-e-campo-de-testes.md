@@ -64,7 +64,7 @@ Função pura: `HandlingModel.compute(stats, upgrades, tuning, assists) -> Vehic
 - [ ] Drift com freio de mão é controlável.
 - [ ] Ajustar pelo painel F2 e salvar o feeling preferido.
 
-Como testar: `tools\scripts\jogar.bat res://game/sandbox/campo_plano/campo_plano.tscn` (guia `docs/guias/campo-de-testes.md`).
+Como testar: duplo clique em `tools\scripts\campo.bat` (guia `docs/guias/campo-de-testes.md`).
 
 ## Armadilhas
 - Física a 60 Hz deixa a suspensão instável: manter 120 Hz.

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "S-Senna — manifesto do add-on do Blender (carkit_manifest.json)",
+  "description": "Doc 03 §5. Gravado pelo S-Senna CarKit ao exportar; posições nos eixos do GODOT (+Z frente, +X esquerda, +Y cima). O Studio e tools/blender/update_car_json.py o usam para preencher o car.json.",
+  "type": "object",
+  "required": ["schema", "schema_version", "kind", "slug", "addon_version", "model", "parts", "sockets", "wheels", "rim", "fixed", "materials", "triangles"],
+  "additionalProperties": false,
+  "$defs": {
+    "vec3": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "number" } },
+    "mm": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "length": { "type": "integer", "minimum": 0 },
+        "width": { "type": "integer", "minimum": 0 },
+        "height": { "type": "integer", "minimum": 0 },
+        "wheelbase": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "properties": {
+    "schema": { "const": "carkit_manifest" },
+    "schema_version": { "const": 1 },
+    "kind": { "enum": ["car", "part", "rim"] },
+    "slug": { "type": "string", "minLength": 1 },
+    "addon_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "model": { "$ref": "common.schema.json#/$defs/relative_path" },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["slot", "variant", "triangles"],
+        "additionalProperties": false,
+        "properties": {
+          "slot": { "$ref": "common.schema.json#/$defs/token" },
+          "variant": { "$ref": "common.schema.json#/$defs/token" },
+          "triangles": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "sockets": {
+      "type": "object",
+      "propertyNames": { "$ref": "common.schema.json#/$defs/name" },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["position"],
+        "properties": { "position": { "$ref": "#/$defs/vec3" } },
+        "additionalProperties": { "type": "number" }
+      }
+    },
+    "wheels": {
+      "type": "object",
+      "propertyNames": { "enum": ["FL", "FR", "RL", "RR"] },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["position", "radius_m"],
+        "additionalProperties": false,
+        "properties": {
+          "position": { "$ref": "#/$defs/vec3" },
+          "radius_m": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "rim": { "type": "string" },
+    "fixed": { "type": "array", "items": { "type": "string" } },
+    "materials": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "triangles": {
+      "type": "object",
+      "required": ["total", "by_object"],
+      "additionalProperties": false,
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "by_object": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } }
+      }
+    },
+    "measured_mm": { "$ref": "#/$defs/mm" },
+    "dimensions_mm": { "$ref": "#/$defs/mm" }
+  }
+}

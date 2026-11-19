@@ -63,7 +63,7 @@ Estrutura:
 - [x] Peça de mod ausente não some do save.
 - [x] Disco cheio / escrita silenciosamente corrompida (simulados com `FileOps` falho): o save anterior continua intacto.
 ### 🎮 Manuais
-- [ ] Fechar o jogo pelo "X" da janela salva o perfil — use a tela de teste: `tools\scripts\jogar.bat res://game/sandbox/save_debug.tscn`,
+- [ ] Fechar o jogo pelo "X" da janela salva o perfil — use a tela de teste (duplo clique em `tools\scripts\perfis.bat`),
   crie/carregue um perfil, clique em **"+1000 sem salvar"**, feche pelo X e abra de novo: o dinheiro deve ter aumentado.
 
 ## Armadilhas

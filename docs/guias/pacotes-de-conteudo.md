@@ -82,6 +82,8 @@ No repositório, o CI vai além: `tools/ci/validate_content.sh` confere todos os
 
 ## 6. Conteúdo gerado por script
 
-O carro de teste das fixtures e os placeholders do pacote `base` (Protótipo S-Senna, aros Básica 5 e Disco Aero,
-Asa Simples) são gerados por `tools/fixtures/make_test_car.sh`. Não edite esses `.glb` nem os `car.json` deles à mão:
-mude o gerador e rode o script de novo.
+O carro de teste das fixtures e os placeholders do pacote `base` (aros Básica 5 e Disco Aero, Asa Simples) são
+gerados por `tools/fixtures/make_test_car.sh`; o **Protótipo S-Senna** é feito pelo add-on do Blender com
+`tools/blender/make_prototipo_v2.sh` (que também grava o `carkit_manifest.json` e atualiza o `car.json`).
+Não edite esses `.glb` à mão: mude o gerador e rode o script de novo. No `car.json` do protótipo, só o que vem do
+modelo (medidas, peças, soquetes, rodas) é reescrito — nomes, preços, stats e `tuning_overrides` podem ser editados.

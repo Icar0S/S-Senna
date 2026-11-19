@@ -64,12 +64,13 @@ orçamento de triângulos estourado (por objeto e total), soquetes obrigatórios
 
 ## Critérios de aceite
 ### 🤖 Automáticos
-- [ ] Testes do validador: cada regra tem um caso que passa e um que falha.
-- [ ] Exportação do protótipo → Godot monta o carro **sem nenhum aviso** (`CarAssembler`).
-- [ ] Manifesto bate com o que o `ConventionScanner` encontra.
+- [x] Testes do validador: cada regra tem um caso que passa e um que falha (`tools/blender/tests/test_pure.py`, sem Blender).
+- [x] Exportação do protótipo → Godot monta o carro **sem nenhum aviso** (`CarAssembler`) — `godot/tests/integration/test_carkit_prototype.gd`.
+- [x] Manifesto bate com o que o `ConventionScanner` encontra (peças, soquetes e parâmetros, âncoras, aro, partes fixas, materiais e triângulos por objeto) — mesmo teste.
+- [x] Operadores e exportador testados dentro do Blender headless (`tools/blender/tests/run_tests.py`) e instalação do `.zip` num perfil temporário (`tools/blender/test_install.sh`).
 ### 🎮 Manuais (dono)
-- [ ] Instalar o add-on arrastando o `.zip` no Blender 5.2.
-- [ ] Seguir o guia com um modelo simples (pode ser um carro baixado com licença livre) e chegar ao `.glb` validado.
+- [ ] Instalar o add-on arrastando o `.zip` no Blender 5.2 ([guia](../../guias/instalar-addon-blender.md)).
+- [ ] Seguir o guia com um modelo simples (pode ser um carro baixado com licença livre) e chegar ao `.glb` validado ([guia](../../guias/adicionar-carro.md)).
 
 ## Armadilhas
 - Exportar o objeto original em vez de uma cópia (estraga o `.blend` do usuário): sempre trabalhar numa cópia temporária.
@@ -77,3 +78,20 @@ orçamento de triângulos estourado (por objeto e total), soquetes obrigatórios
 
 ## Fora do escopo
 Ficha do carro, stats, sons, preço (tudo isso é no Studio, Etapa 06).
+
+## Notas de implementação (2026-11-18)
+| Item | Como ficou | Motivo |
+|---|---|---|
+| Módulos puros | `conventions`, `naming`, `geometry`, `validator` e `manifest` não importam `bpy`; `scene_info` traduz a cena do Blender para `SceneInfo` | Todas as regras testáveis com Python comum (30 testes, rodam no job de lint do CI) |
+| Convenções | O add-on lê `godot/core/content/conventions.json` quando roda do repositório; o `.zip` leva uma cópia feita pelo `build_extension.sh` (ignorada pelo Git) | Fonte única com o Godot |
+| Novas chaves em `conventions.json` | `recommended_sockets`, `rim_model`, `validation` (tolerâncias) e `material_preview` (doc 03 §4) | Nada de números/listas mágicas no add-on |
+| Medidas do carro | Peças `stock` + partes fixas, **sem** `spoiler` e `mirrors` (`validator.UNMEASURED_SLOTS`) | Largura de ficha técnica é sem retrovisores; o protótipo v2 ganhou retrovisores |
+| `car.json` ← manifesto | `tools/blender/update_car_json.py` grava as medidas **medidas no modelo** (o validador já garantiu ±2% do digitado), mantém a ordem e tudo que não vem do modelo | O jogo usa o tamanho real do modelo; diffs pequenos no `car.json` |
+| Formato do manifesto | `carkit_manifest.json` com posições nos eixos do Godot, schema `schemas/carkit_manifest.schema.json` (doc 03 §5.1) | O Studio (Etapa 06) vai ler o mesmo arquivo |
+| Exportação | Cópias temporárias (originais renomeados com sufixo e restaurados no `finally`); rotação/escala aplicadas na malha, posição mantida no objeto; glTF binário +Y para cima com `extras` | Nunca estragar o `.blend` do usuário (armadilha da etapa); `rim-stock` mantém a origem no centro |
+| "Validar" com erros | Reporta como **aviso** do Blender (a lista mostra os vermelhos) | Um `ERROR` do operador aborta scripts que o chamam (`RuntimeError`); a exportação, essa sim, termina com erro |
+| Protótipo v2 | `tools/blender/make_prototipo_v2.py` modela com bmesh (curvas monotônicas ao longo do carro, seções Catmull-Rom centrípetas, arcos de roda redondos, vidros, interior, grade, retrovisores, aro de 5 raios) e usa os botões do add-on para todo o resto (novo carro, variantes, material, soquetes, espelhar, detectar rodas, validar, exportar) | Entregável "feito de ponta a ponta pelo add-on"; o `prototipo` saiu do `make_test_car.gd` (a nota da Etapa 01 sobre o gerador vale só para a fixture, os aros e a asa) |
+| Peças novas do protótipo | `mirrors-stock` (nova peça → novo ID `part:base/prototipo/mirrors-stock`) e `interior-stock` (parte fixa); IDs antigos mantidos | Nenhum ID publicado foi apagado ou reaproveitado |
+| Versão do Blender | `.blender-version` (5.2.4) + `find_blender` (variável `BLENDER` ou PATH) + `tools/ci/install_blender.sh` (confere o SHA-256) | Mesmo padrão do Godot |
+| CI | `blender.yml` só roda quando `tools/blender/**`, as convenções ou a versão mudam; instala as bibliotecas X11/GL que o Blender carrega mesmo em segundo plano e guarda o `.zip` como artefato | Job opcional pedido na tarefa 7 |
+| Lint do Python | `ruff check` + `ruff format --check` em `tools/` (regras em `ruff.toml`) dentro do `tools/ci/lint.sh` | O repositório passou a ter Python de verdade |

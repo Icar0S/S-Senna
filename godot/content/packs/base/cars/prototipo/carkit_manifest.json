@@ -1,0 +1,261 @@
+{
+  "schema": "carkit_manifest",
+  "schema_version": 1,
+  "kind": "car",
+  "slug": "prototipo",
+  "addon_version": "0.1.0",
+  "model": "model.glb",
+  "parts": [
+    {
+      "slot": "body",
+      "variant": "stock",
+      "triangles": 4820
+    },
+    {
+      "slot": "bumper_front",
+      "variant": "kit01",
+      "triangles": 132
+    },
+    {
+      "slot": "bumper_front",
+      "variant": "kit02",
+      "triangles": 156
+    },
+    {
+      "slot": "bumper_front",
+      "variant": "stock",
+      "triangles": 120
+    },
+    {
+      "slot": "hood",
+      "variant": "kit01",
+      "triangles": 338
+    },
+    {
+      "slot": "hood",
+      "variant": "stock",
+      "triangles": 338
+    },
+    {
+      "slot": "mirrors",
+      "variant": "stock",
+      "triangles": 72
+    },
+    {
+      "slot": "spoiler",
+      "variant": "stock",
+      "triangles": 72
+    }
+  ],
+  "sockets": {
+    "cam_bumper": {
+      "position": [
+        0.0,
+        0.45,
+        2.24
+      ]
+    },
+    "cam_hood": {
+      "position": [
+        0.0,
+        0.917,
+        1.2
+      ]
+    },
+    "canard_L": {
+      "position": [
+        0.8,
+        0.36,
+        2.13
+      ]
+    },
+    "canard_R": {
+      "position": [
+        -0.8,
+        0.36,
+        2.13
+      ]
+    },
+    "exhaust_L": {
+      "position": [
+        0.45,
+        0.26,
+        -2.12
+      ]
+    },
+    "exhaust_R": {
+      "position": [
+        -0.45,
+        0.26,
+        -2.12
+      ]
+    },
+    "hood_scoop": {
+      "position": [
+        0.0,
+        0.761,
+        1.45
+      ]
+    },
+    "light_head_L": {
+      "position": [
+        0.5,
+        0.515,
+        2.1
+      ]
+    },
+    "light_head_R": {
+      "position": [
+        -0.5,
+        0.515,
+        2.1
+      ]
+    },
+    "light_tail_L": {
+      "position": [
+        0.6,
+        0.79,
+        -2.11
+      ]
+    },
+    "light_tail_R": {
+      "position": [
+        -0.6,
+        0.79,
+        -2.11
+      ]
+    },
+    "lip_front": {
+      "position": [
+        0.0,
+        0.25,
+        2.18
+      ],
+      "width_m": 1.6
+    },
+    "lip_rear": {
+      "position": [
+        0.0,
+        0.3,
+        -2.1
+      ],
+      "width_m": 1.6
+    },
+    "neon": {
+      "position": [
+        0.0,
+        0.18,
+        0.0
+      ],
+      "length_m": 3.6,
+      "width_m": 1.5
+    },
+    "plate_front": {
+      "position": [
+        0.0,
+        0.36,
+        2.225
+      ]
+    },
+    "plate_rear": {
+      "position": [
+        0.0,
+        0.56,
+        -2.11
+      ]
+    },
+    "roof_scoop": {
+      "position": [
+        0.0,
+        1.257,
+        -0.3
+      ]
+    },
+    "spoiler": {
+      "position": [
+        0.0,
+        0.929,
+        -1.88
+      ],
+      "width_m": 1.3
+    }
+  },
+  "wheels": {
+    "FL": {
+      "position": [
+        0.77,
+        0.31,
+        1.275
+      ],
+      "radius_m": 0.31
+    },
+    "FR": {
+      "position": [
+        -0.77,
+        0.31,
+        1.275
+      ],
+      "radius_m": 0.31
+    },
+    "RL": {
+      "position": [
+        0.77,
+        0.31,
+        -1.275
+      ],
+      "radius_m": 0.31
+    },
+    "RR": {
+      "position": [
+        -0.77,
+        0.31,
+        -1.275
+      ],
+      "radius_m": 0.31
+    }
+  },
+  "rim": "rim-stock",
+  "fixed": [
+    "glass-stock",
+    "interior-stock"
+  ],
+  "materials": [
+    "chrome",
+    "glass",
+    "interior",
+    "light_head",
+    "light_tail",
+    "metal_dark",
+    "paint_body",
+    "rim",
+    "rim_accent",
+    "trim_black"
+  ],
+  "triangles": {
+    "total": 7988,
+    "by_object": {
+      "body-stock": 4820,
+      "bumper_front-kit01": 132,
+      "bumper_front-kit02": 156,
+      "bumper_front-stock": 120,
+      "glass-stock": 976,
+      "hood-kit01": 338,
+      "hood-stock": 338,
+      "interior-stock": 84,
+      "mirrors-stock": 72,
+      "rim-stock": 880,
+      "spoiler-stock": 72
+    }
+  },
+  "measured_mm": {
+    "length": 4339,
+    "width": 1760,
+    "height": 1267
+  },
+  "dimensions_mm": {
+    "length": 4340,
+    "width": 1760,
+    "height": 1265,
+    "wheelbase": 2550
+  }
+}

@@ -118,13 +118,23 @@ pelo add-on do Blender e pelo CI.
                               "-navmesh", "-occ", "-occonly", "-noimp", "-loop", "-cycle"],
   "part_finishes": ["paint", "carbon", "black"],
   "paint_finishes": ["solid", "metallic", "pearl", "matte", "satin", "chrome", "candy", "chameleon"],
-  "budgets": { "car_total_tris": 45000, "body_tris": 35000, "part_tris": 4000, "rim_tris": 4000 }
+  "budgets": { "car_total_tris": 45000, "body_tris": 35000, "part_tris": 4000, "rim_tris": 4000 },
+  "recommended_sockets": ["spoiler", "exhaust_L", "exhaust_R", "lip_front", "lip_rear", "plate_front", "plate_rear",
+                          "neon", "light_head_L", "light_head_R", "light_tail_L", "light_tail_R"],
+  "rim_model": { "diameter_in": 18.0, "width_in": 8.0 },
+  "validation": { "dimension_tolerance_pct": 2.0, "wheel_symmetry_m": 0.01, "wheel_ground_m": 0.015 },
+  "material_preview": { "paint_body": "#C8102E", "trim_black": "#141518", "glass": "#1C2A36", "...": "..." }
 }
 ```
 - `node_prefixes`, `fixed_prefixes`, `metadata_keys`, `metadata_roles` e `forbidden_name_suffixes` (Etapa 01): tudo o que
   o `ConventionScanner` e o validador do add-on usam para ler o `.glb` — nada disso fica escrito no código.
 - `part_finishes` (acabamentos de peça) e `paint_finishes` (acabamentos de pintura, usados pelo shader) também moram aqui;
   o `paints.json` só pode listar acabamentos desta lista.
+- Chaves do add-on do Blender (Etapa 05):
+  - `recommended_sockets`: soquetes cuja falta gera **aviso** (amarelo) no validador.
+  - `rim_model`: tamanho em que aros são modelados (18" × 8"); o jogo escala para o aro escolhido.
+  - `validation`: tolerâncias do validador (dimensões ±2%, simetria das rodas 1 cm, roda tocando o chão 1,5 cm).
+  - `material_preview`: cor de pré-visualização de cada material no Blender (o jogo usa os próprios materiais; só o nome importa).
 
 ### 4.1 Slots (onde as peças encaixam)
 | Slot | Tipo | Nome no jogo | Observação |
@@ -275,6 +285,33 @@ Separador **`-`** (hífen). Ponto (`.`) é proibido porque o Godot não aceita p
 - ID de cada peça específica = `part:<pacote>/<slug-do-carro>/<slot>-<variante>`.
 - Peças sem `price` usam o preço padrão do slot × fator da categoria do carro (em `economy.json`).
 - Campo opcional `tuning_overrides` (objeto): ajustes finos de física deste carro salvos pelo painel F2 / test drive do Studio (Etapa 04/06). Sobrescrevem os valores calculados pelo `HandlingModel`.
+
+### 5.1 Manifesto do add-on — `carkit_manifest.json`
+Gravado pelo add-on S-Senna CarKit (Etapa 05) ao lado do `.glb` exportado. Schema `schemas/carkit_manifest.schema.json`.
+Posições nos **eixos do Godot** (+Z frente, +X esquerda, +Y cima), em metros.
+
+```json
+{
+  "schema": "carkit_manifest", "schema_version": 1,
+  "kind": "car",                         // car | part | rim
+  "slug": "prototipo", "addon_version": "0.1.0", "model": "model.glb",
+  "parts": [ { "slot": "bumper_front", "variant": "kit01", "triangles": 132 } ],
+  "sockets": { "spoiler": { "position": [0.0, 0.929, -1.88], "width_m": 1.3 } },
+  "wheels": { "FL": { "position": [0.77, 0.31, 1.275], "radius_m": 0.31 } },
+  "rim": "rim-stock",
+  "fixed": ["glass-stock", "interior-stock"],
+  "materials": ["glass", "interior", "paint_body", "rim", "trim_black"],
+  "triangles": { "total": 7988, "by_object": { "body-stock": 4858 } },
+  "measured_mm": { "length": 4339, "width": 1760, "height": 1267 },
+  "dimensions_mm": { "length": 4340, "width": 1760, "height": 1265, "wheelbase": 2550 }
+}
+```
+- `measured_mm`: o carro como sai de fábrica — peças `stock` + partes fixas, **sem** aerofólio e retrovisores (como na ficha
+  técnica de um carro real). `dimensions_mm`: o que o modelador digitou; o validador exige `measured_mm` a ±2% disso.
+- `tools/blender/update_car_json.py <manifesto> <car.json>` (precursor do "importar carro" do Studio, Etapa 06) reescreve no
+  `car.json` só o que vem do modelo — `dimensions_mm` (medidas reais + entre-eixos das rodas), `parts`, `sockets`,
+  `wheels.anchors`, `wheels.tire_outer_diameter_m` e `wheels.stock.rim` — mantendo a ordem existente e todo o resto
+  (nomes e preços das peças, stats, `tuning_overrides`…).
 
 ## 6. Peça universal — `part.json`
 ```json
